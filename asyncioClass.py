@@ -1,30 +1,42 @@
 import logging
+import threading
+from socket import socket
 
-import qasync
+import asyncssh as asyncssh
 import asyncio
+import qasync
 from PySide6.QtCore import Signal
 
 
 class Asyncio:
     started = Signal()
     finished = Signal()
-    outputCmd = Signal(list)
+    connectionOK = Signal()
+    error = Signal()
+    outputCmd = Signal(str)
 
     @qasync.asyncSlot()
-    async def runAsyncioCmd(self, cmd):
+    async def runAsyncioCmd(self, ip, username, password, cmd):
         self.started.emit()
-        proc = await asyncio.create_subprocess_shell(
-            cmd,
-            stdout=asyncio.subprocess.PIPE,
-            stderr=asyncio.subprocess.PIPE)
-
-        stdout, stderr = await proc.communicate()
-        logging.debug(f'[{cmd!r} exited with {proc.returncode}]')
-        if stdout:
-            separator = bytes("\n", 'utf-8')
-            splitedOutput = stdout.split(separator)
-            self.outputCmd.emit(splitedOutput)
-            #logging.debug(f'[stdout]\n{stdout.decode()}')
-        if stderr:
-            logging.debug(f'[stderr]\n{stderr.decode()}')
+        try:
+            async with await asyncio.wait_for(asyncssh.connect(ip, username=username, password=password), timeout=3) as conn:
+                result = await conn.run(cmd, check=True)
+                self.outputCmd.emit(result.stdout)
+        except:
+            self.outputCmd.emit("")
+            logging.exception(f'Can not connect to {ip} as {username}')
+            self.error.emit()
         self.finished.emit()
+
+    @qasync.asyncSlot()
+    async def checkConnectionSSH(self, ip, username, password, cmd):
+        try:
+            async with await asyncio.wait_for(asyncssh.connect(ip, username=username, password=password),
+                                              timeout=3) as conn:
+                result = await conn.run(cmd, check=True)
+                self.connectionOK.emit()
+        except:
+            logging.exception(f'Can not connect to {ip} as {username}')
+            self.error.emit()
+
+

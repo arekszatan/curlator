@@ -1,0 +1,65 @@
+{
+	"ip": "192.168.122.21",
+	"username": "amsort",
+	"password": "amsort25@%",
+    "curls":
+    [
+      {
+        "shortInfo": "Start kompletacji",
+        "curl": "curl --data \"element=pl.amsort.phs.herbalife.order.CompletationOrderProviderImpl&methodString=testStartCompletation&p=]C0212\" http://localhost:8080/srvlt/order"
+      },
+      {
+        "shortInfo": "Start kompletacji inna składnia",
+        "curl": "curl --data \"element=pl.amsort.phs.herbalife.order.CompletationOrdersProviderImpl&callMethod=testStartCompletation&params=1&t1=str&p1=]C041\" http://localhost:8080/srvlt/order"
+      },
+      {
+        "shortInfo": "Logowanie",
+        "curl": "curl --data \"element=pl.amsort.phs.herbalife.soapws.WebserviceClientImpl&callMethod=testMayLogin&params=3&t1=str&t2=str&t3=str&p1=login&p2=password&p3=zone\" http://localhost:8080/srvlt/order"
+      },
+      {
+        "shortInfo": "Szyfrowanie",
+        "curl": "curl --data \"element=pl.amsort.phs.herbalife.soapws.AESEncryptor&methodString=testEncryption&p=TestoweHasło123!\" http://localhost:8080/srvlt/order"
+      },
+      {
+        "shortInfo": "Dodanie carriera",
+        "curl": "curl --data \"element=pl.amsort.phs.herbalife.carrier.CarrierProviderImpl&callMethod=addCarrier&params=2&t1=str&t2=int&p1=]C0212&p2=2\" http://localhost:8080/srvlt/order"
+      },
+      {
+        "shortInfo": "Wylistowanie pojemników",
+        "curl": "curl --data \"element=pl.amsort.phs.herbalife.carrier.CarrierProviderImpl&callMethod=listCarriers&params=0\" http://localhost:8080/srvlt/order"
+      },
+      {
+        "shortInfo": "Wylistowanie zamówień",
+        "curl": "curl --data \"element=pl.amsort.phs.herbalife.order.CompletationOrderProviderImpl&callMethod=listOrders&params=0\" http://localhost:8080/srvlt/order"
+      },
+      {
+        "shortInfo": "Wylistowanie linii dla zamówienia",
+        "curl": "curl --data \"element=pl.amsort.phs.herbalife.order.CompletationOrderProviderImpl&methodString=listLines&p=95121229LG\" http://localhost:8080/srvlt/order"
+      },
+      {
+        "shortInfo": "Wylistowanie linii zamówienia dla lokacji",
+        "curl": "curl --data \"element=pl.amsort.phs.herbalife.order.CompletationOrderProviderImpl&callMethod=listLinesForLocation&params=2&t1=str&t2=str&p1=95121229LG&p2=AB38.01.01\" http://localhost:8080/srvlt/order"
+      },
+      {
+        "shortInfo": "Wylistowanie lokacji dla zamówienia",
+        "curl": "curl --data \"element=pl.amsort.phs.herbalife.order.CompletationOrderProviderImpl&methodString=listLocationsForOrder&p=95121229LG\" http://localhost:8080/srvlt/order"
+      },
+      {
+        "shortInfo": "Wylistowanie picków",
+        "curl": "curl --data \"element=pl.amsort.phs.herbalife.order.PickingDataProviderImpl&callMethod=listPicks&params=0\" http://localhost:8080/srvlt/order"
+      },
+      {
+        "shortInfo": "Dodanie picka",
+        "curl": "curl --data \"element=pl.amsort.phs.herbalife.order.PickingDataProviderImpl&callMethod=addPick&params=6&t1=str&t2=int&t3=int&t4=str&t5=str&t6=str&p1=95110438&p2=64638706&p3=1&p4=2&p5=3&p6=U172K123456789012345\" http://localhost:8080/srvlt/order"
+      },
+      {
+        "shortInfo": "Koniec kompletacji",
+        "curl": "curl --data \"element=pl.amsort.phs.herbalife.order.CompletationOrderProviderImpl&methodString=testFinishCompletation&p=]C0212\" http://localhost:8080/srvlt/order"
+      },
+      {
+        "shortInfo": "Koniec pickingu w strefie",
+        "curl": "curl --data \"element=pl.amsort.phs.herbalife.order.CompletationOrderProviderImpl&callMethod=testFinishPicking&params=2&t1=str&t2=int&p1=]C0212&p2=1\" http://localhost:8080/srvlt/order"
+      }    
+
+    ]
+}

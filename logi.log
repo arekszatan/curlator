@@ -1,0 +1,203 @@
+28-Mar-23 15:25:51::INFO >>> Starting main ...
+28-Mar-23 15:25:52::INFO >>> Starting aplication Curlator ...
+28-Mar-23 15:25:52::INFO >>> Opening QFileDialog ...
+28-Mar-23 15:25:57::INFO >>> Trying decode to JSON file D:/GIT curlator/test.json
+28-Mar-23 15:25:57::INFO >>> Starting ssh Curlator ...
+28-Mar-23 15:25:57::INFO >>> Opening SSH connection to 192.168.122.21, port 22
+28-Mar-23 15:25:57::INFO >>> [conn=0] Connected to SSH server at 192.168.122.21, port 22
+28-Mar-23 15:25:57::INFO >>> [conn=0]   Local address: 192.168.16.32, port 55769
+28-Mar-23 15:25:57::INFO >>> [conn=0]   Peer address: 192.168.122.21, port 22
+28-Mar-23 15:25:57::INFO >>> [conn=0] Beginning auth for user amsort
+28-Mar-23 15:25:57::INFO >>> [conn=0] Auth for user amsort succeeded
+28-Mar-23 15:25:57::INFO >>> [conn=0, chan=0] Requesting new SSH session
+28-Mar-23 15:25:58::INFO >>> [conn=0, chan=0]   Command: ls
+28-Mar-23 15:25:58::INFO >>> [conn=0, chan=0] Received exit status 0
+28-Mar-23 15:25:58::INFO >>> [conn=0, chan=0] Received channel close
+28-Mar-23 15:25:58::INFO >>> [conn=0, chan=0] Channel closed
+28-Mar-23 15:25:58::INFO >>> Logging to 192.168.122.21 is succesed
+28-Mar-23 15:25:58::INFO >>> [conn=0] Closing connection
+28-Mar-23 15:25:58::INFO >>> [conn=0] Sending disconnect: Disconnected by application (11)
+28-Mar-23 15:25:58::INFO >>> [conn=0] Connection closed
+28-Mar-23 15:25:59::INFO >>> List of Json was clicked and value of row is curl --data "element=pl.amsort.phs.herbalife.order.CompletationOrderProviderImpl&callMethod=listOrders&params=0" http://localhost:8080/srvlt/order
+28-Mar-23 15:25:59::INFO >>> Opening SSH connection to 192.168.122.21, port 22
+28-Mar-23 15:25:59::INFO >>> [conn=1] Connected to SSH server at 192.168.122.21, port 22
+28-Mar-23 15:25:59::INFO >>> [conn=1]   Local address: 192.168.16.32, port 55770
+28-Mar-23 15:25:59::INFO >>> [conn=1]   Peer address: 192.168.122.21, port 22
+28-Mar-23 15:25:59::INFO >>> [conn=1] Beginning auth for user amsort
+28-Mar-23 15:25:59::INFO >>> [conn=1] Auth for user amsort succeeded
+28-Mar-23 15:25:59::INFO >>> [conn=1, chan=0] Requesting new SSH session
+28-Mar-23 15:26:00::INFO >>> [conn=1, chan=0]   Command: tail -n 10 ~/PHS/logs/(date +%Y_%m_%d)_logging.log | grep a
+28-Mar-23 15:26:00::INFO >>> [conn=1, chan=0] Received exit status 0
+28-Mar-23 15:26:00::INFO >>> [conn=1, chan=0] Received channel close
+28-Mar-23 15:26:00::INFO >>> [conn=1, chan=0] Channel closed
+28-Mar-23 15:26:00::INFO >>> [conn=1] Closing connection
+28-Mar-23 15:26:00::INFO >>> [conn=1] Sending disconnect: Disconnected by application (11)
+28-Mar-23 15:26:00::INFO >>> [conn=1] Connection closed
+28-Mar-23 15:26:00::INFO >>> Opening SSH connection to 192.168.122.21, port 22
+28-Mar-23 15:26:00::INFO >>> [conn=2] Connected to SSH server at 192.168.122.21, port 22
+28-Mar-23 15:26:00::INFO >>> [conn=2]   Local address: 192.168.16.32, port 55771
+28-Mar-23 15:26:00::INFO >>> [conn=2]   Peer address: 192.168.122.21, port 22
+28-Mar-23 15:26:00::INFO >>> [conn=2] Beginning auth for user amsort
+28-Mar-23 15:26:00::INFO >>> [conn=2] Auth for user amsort succeeded
+28-Mar-23 15:26:00::INFO >>> [conn=2, chan=0] Requesting new SSH session
+28-Mar-23 15:26:01::INFO >>> [conn=2, chan=0]   Command: tail -n 10 ~/PHS/logs/(date +%Y_%m_%d)_logging.log | grep a
+28-Mar-23 15:26:01::INFO >>> [conn=2, chan=0] Received exit status 0
+28-Mar-23 15:26:01::INFO >>> [conn=2, chan=0] Received channel close
+28-Mar-23 15:26:01::INFO >>> [conn=2, chan=0] Channel closed
+28-Mar-23 15:26:01::INFO >>> [conn=2] Closing connection
+28-Mar-23 15:26:01::INFO >>> [conn=2] Sending disconnect: Disconnected by application (11)
+28-Mar-23 15:26:01::INFO >>> [conn=2] Connection closed
+28-Mar-23 15:26:01::INFO >>> Opening SSH connection to 192.168.122.21, port 22
+28-Mar-23 15:26:01::INFO >>> [conn=3] Connected to SSH server at 192.168.122.21, port 22
+28-Mar-23 15:26:01::INFO >>> [conn=3]   Local address: 192.168.16.32, port 55772
+28-Mar-23 15:26:01::INFO >>> [conn=3]   Peer address: 192.168.122.21, port 22
+28-Mar-23 15:26:01::INFO >>> [conn=3] Beginning auth for user amsort
+28-Mar-23 15:26:01::INFO >>> [conn=3] Auth for user amsort succeeded
+28-Mar-23 15:26:01::INFO >>> [conn=3, chan=0] Requesting new SSH session
+28-Mar-23 15:26:01::INFO >>> [conn=3, chan=0]   Command: tail -n 10 ~/PHS/logs/(date +%Y_%m_%d)_logging.log | grep a
+28-Mar-23 15:26:02::INFO >>> [conn=3, chan=0] Received exit status 0
+28-Mar-23 15:26:02::INFO >>> [conn=3, chan=0] Received channel close
+28-Mar-23 15:26:02::INFO >>> [conn=3, chan=0] Channel closed
+28-Mar-23 15:26:02::INFO >>> [conn=3] Closing connection
+28-Mar-23 15:26:02::INFO >>> [conn=3] Sending disconnect: Disconnected by application (11)
+28-Mar-23 15:26:02::INFO >>> [conn=3] Connection closed
+28-Mar-23 15:26:02::INFO >>> Opening SSH connection to 192.168.122.21, port 22
+28-Mar-23 15:26:02::INFO >>> [conn=4] Connected to SSH server at 192.168.122.21, port 22
+28-Mar-23 15:26:02::INFO >>> [conn=4]   Local address: 192.168.16.32, port 55773
+28-Mar-23 15:26:02::INFO >>> [conn=4]   Peer address: 192.168.122.21, port 22
+28-Mar-23 15:26:02::INFO >>> [conn=4] Beginning auth for user amsort
+28-Mar-23 15:26:02::INFO >>> [conn=4] Auth for user amsort succeeded
+28-Mar-23 15:26:02::INFO >>> [conn=4, chan=0] Requesting new SSH session
+28-Mar-23 15:26:03::INFO >>> [conn=4, chan=0]   Command: tail -n 10 ~/PHS/logs/(date +%Y_%m_%d)_logging.log | grep a
+28-Mar-23 15:26:03::INFO >>> [conn=4, chan=0] Received exit status 0
+28-Mar-23 15:26:03::INFO >>> [conn=4, chan=0] Received channel close
+28-Mar-23 15:26:03::INFO >>> [conn=4, chan=0] Channel closed
+28-Mar-23 15:26:03::INFO >>> [conn=4] Closing connection
+28-Mar-23 15:26:03::INFO >>> [conn=4] Sending disconnect: Disconnected by application (11)
+28-Mar-23 15:26:03::INFO >>> [conn=4] Connection closed
+28-Mar-23 15:26:15::INFO >>> Opening SSH connection to 192.168.122.21, port 22
+28-Mar-23 15:26:15::INFO >>> [conn=5] Connected to SSH server at 192.168.122.21, port 22
+28-Mar-23 15:26:15::INFO >>> [conn=5]   Local address: 192.168.16.32, port 55780
+28-Mar-23 15:26:15::INFO >>> [conn=5]   Peer address: 192.168.122.21, port 22
+28-Mar-23 15:26:15::INFO >>> [conn=5] Beginning auth for user amsort
+28-Mar-23 15:26:16::INFO >>> [conn=5] Auth for user amsort succeeded
+28-Mar-23 15:26:16::INFO >>> [conn=5, chan=0] Requesting new SSH session
+28-Mar-23 15:26:16::INFO >>> [conn=5, chan=0]   Command: tail -n 3000 ~/PHS/logs/(date +%Y_%m_%d)_logging.log | grep a
+28-Mar-23 15:26:16::INFO >>> [conn=5, chan=0] Received exit status 0
+28-Mar-23 15:26:16::INFO >>> [conn=5, chan=0] Received channel close
+28-Mar-23 15:26:16::INFO >>> [conn=5, chan=0] Channel closed
+28-Mar-23 15:26:16::INFO >>> [conn=5] Closing connection
+28-Mar-23 15:26:16::INFO >>> [conn=5] Sending disconnect: Disconnected by application (11)
+28-Mar-23 15:26:16::INFO >>> [conn=5] Connection closed
+28-Mar-23 15:26:16::INFO >>> Opening SSH connection to 192.168.122.21, port 22
+28-Mar-23 15:26:16::INFO >>> [conn=6] Connected to SSH server at 192.168.122.21, port 22
+28-Mar-23 15:26:16::INFO >>> [conn=6]   Local address: 192.168.16.32, port 55781
+28-Mar-23 15:26:16::INFO >>> [conn=6]   Peer address: 192.168.122.21, port 22
+28-Mar-23 15:26:16::INFO >>> [conn=6] Beginning auth for user amsort
+28-Mar-23 15:26:17::INFO >>> [conn=6] Auth for user amsort succeeded
+28-Mar-23 15:26:17::INFO >>> [conn=6, chan=0] Requesting new SSH session
+28-Mar-23 15:26:17::INFO >>> [conn=6, chan=0]   Command: tail -n 3000 ~/PHS/logs/(date +%Y_%m_%d)_logging.log | grep a
+28-Mar-23 15:26:17::INFO >>> [conn=6, chan=0] Received exit status 0
+28-Mar-23 15:26:17::INFO >>> [conn=6, chan=0] Received channel close
+28-Mar-23 15:26:17::INFO >>> [conn=6, chan=0] Channel closed
+28-Mar-23 15:26:17::INFO >>> [conn=6] Closing connection
+28-Mar-23 15:26:17::INFO >>> [conn=6] Sending disconnect: Disconnected by application (11)
+28-Mar-23 15:26:17::INFO >>> [conn=6] Connection closed
+28-Mar-23 15:26:17::INFO >>> Opening SSH connection to 192.168.122.21, port 22
+28-Mar-23 15:26:17::INFO >>> [conn=7] Connected to SSH server at 192.168.122.21, port 22
+28-Mar-23 15:26:17::INFO >>> [conn=7]   Local address: 192.168.16.32, port 55782
+28-Mar-23 15:26:17::INFO >>> [conn=7]   Peer address: 192.168.122.21, port 22
+28-Mar-23 15:26:18::INFO >>> [conn=7] Beginning auth for user amsort
+28-Mar-23 15:26:18::INFO >>> [conn=7] Auth for user amsort succeeded
+28-Mar-23 15:26:18::INFO >>> [conn=7, chan=0] Requesting new SSH session
+28-Mar-23 15:26:18::INFO >>> Opening SSH connection to 192.168.122.21, port 22
+28-Mar-23 15:26:18::INFO >>> [conn=8] Connected to SSH server at 192.168.122.21, port 22
+28-Mar-23 15:26:18::INFO >>> [conn=8]   Local address: 192.168.16.32, port 55783
+28-Mar-23 15:26:18::INFO >>> [conn=8]   Peer address: 192.168.122.21, port 22
+28-Mar-23 15:26:18::INFO >>> [conn=7, chan=0]   Command: tail -n 3000 ~/PHS/logs/(date +%Y_%m_%d)_logging.log | grep a
+28-Mar-23 15:26:18::INFO >>> [conn=8] Beginning auth for user amsort
+28-Mar-23 15:26:18::INFO >>> [conn=7, chan=0] Received exit status 0
+28-Mar-23 15:26:18::INFO >>> [conn=7, chan=0] Received channel close
+28-Mar-23 15:26:18::INFO >>> [conn=7, chan=0] Channel closed
+28-Mar-23 15:26:18::INFO >>> [conn=7] Closing connection
+28-Mar-23 15:26:18::INFO >>> [conn=7] Sending disconnect: Disconnected by application (11)
+28-Mar-23 15:26:18::INFO >>> [conn=7] Connection closed
+28-Mar-23 15:26:19::INFO >>> [conn=8] Auth for user amsort succeeded
+28-Mar-23 15:26:19::INFO >>> [conn=8, chan=0] Requesting new SSH session
+28-Mar-23 15:26:19::INFO >>> [conn=8, chan=0]   Command: tail -n 3000 ~/PHS/logs/(date +%Y_%m_%d)_logging.log | grep a
+28-Mar-23 15:26:19::INFO >>> [conn=8, chan=0] Received exit status 0
+28-Mar-23 15:26:19::INFO >>> [conn=8, chan=0] Received channel close
+28-Mar-23 15:26:19::INFO >>> [conn=8, chan=0] Channel closed
+28-Mar-23 15:26:19::INFO >>> [conn=8] Closing connection
+28-Mar-23 15:26:19::INFO >>> [conn=8] Sending disconnect: Disconnected by application (11)
+28-Mar-23 15:26:19::INFO >>> [conn=8] Connection closed
+28-Mar-23 15:26:19::INFO >>> Opening SSH connection to 192.168.122.21, port 22
+28-Mar-23 15:26:19::INFO >>> [conn=9] Connected to SSH server at 192.168.122.21, port 22
+28-Mar-23 15:26:19::INFO >>> [conn=9]   Local address: 192.168.16.32, port 55784
+28-Mar-23 15:26:19::INFO >>> [conn=9]   Peer address: 192.168.122.21, port 22
+28-Mar-23 15:26:19::INFO >>> [conn=9] Beginning auth for user amsort
+28-Mar-23 15:26:20::INFO >>> [conn=9] Auth for user amsort succeeded
+28-Mar-23 15:26:20::INFO >>> [conn=9, chan=0] Requesting new SSH session
+28-Mar-23 15:26:20::INFO >>> [conn=9, chan=0]   Command: tail -n 3000 ~/PHS/logs/(date +%Y_%m_%d)_logging.log | grep a
+28-Mar-23 15:26:20::INFO >>> Opening SSH connection to 192.168.122.21, port 22
+28-Mar-23 15:26:20::INFO >>> [conn=9, chan=0] Received exit status 0
+28-Mar-23 15:26:20::INFO >>> [conn=9, chan=0] Received channel close
+28-Mar-23 15:26:20::INFO >>> [conn=9, chan=0] Channel closed
+28-Mar-23 15:26:20::INFO >>> [conn=10] Connected to SSH server at 192.168.122.21, port 22
+28-Mar-23 15:26:20::INFO >>> [conn=10]   Local address: 192.168.16.32, port 55785
+28-Mar-23 15:26:20::INFO >>> [conn=10]   Peer address: 192.168.122.21, port 22
+28-Mar-23 15:26:20::INFO >>> [conn=9] Closing connection
+28-Mar-23 15:26:20::INFO >>> [conn=9] Sending disconnect: Disconnected by application (11)
+28-Mar-23 15:26:20::INFO >>> [conn=9] Connection closed
+28-Mar-23 15:26:20::INFO >>> [conn=10] Beginning auth for user amsort
+28-Mar-23 15:26:21::INFO >>> [conn=10] Auth for user amsort succeeded
+28-Mar-23 15:26:21::INFO >>> [conn=10, chan=0] Requesting new SSH session
+28-Mar-23 15:26:21::INFO >>> Opening SSH connection to 192.168.122.21, port 22
+28-Mar-23 15:26:21::INFO >>> [conn=11] Connected to SSH server at 192.168.122.21, port 22
+28-Mar-23 15:26:21::INFO >>> [conn=11]   Local address: 192.168.16.32, port 55786
+28-Mar-23 15:26:21::INFO >>> [conn=11]   Peer address: 192.168.122.21, port 22
+28-Mar-23 15:26:21::INFO >>> [conn=10, chan=0]   Command: tail -n 3000 ~/PHS/logs/(date +%Y_%m_%d)_logging.log | grep a
+28-Mar-23 15:26:21::INFO >>> [conn=10, chan=0] Received exit status 0
+28-Mar-23 15:26:21::INFO >>> [conn=10, chan=0] Received channel close
+28-Mar-23 15:26:21::INFO >>> [conn=11] Beginning auth for user amsort
+28-Mar-23 15:26:21::INFO >>> [conn=10, chan=0] Channel closed
+28-Mar-23 15:26:21::INFO >>> [conn=10] Closing connection
+28-Mar-23 15:26:21::INFO >>> [conn=10] Sending disconnect: Disconnected by application (11)
+28-Mar-23 15:26:21::INFO >>> [conn=10] Connection closed
+28-Mar-23 15:26:22::INFO >>> [conn=11] Auth for user amsort succeeded
+28-Mar-23 15:26:22::INFO >>> [conn=11, chan=0] Requesting new SSH session
+28-Mar-23 15:26:22::INFO >>> [conn=11, chan=0]   Command: tail -n 3000 ~/PHS/logs/(date +%Y_%m_%d)_logging.log | grep a
+28-Mar-23 15:26:22::INFO >>> [conn=11, chan=0] Received exit status 0
+28-Mar-23 15:26:22::INFO >>> [conn=11, chan=0] Received channel close
+28-Mar-23 15:26:22::INFO >>> [conn=11, chan=0] Channel closed
+28-Mar-23 15:26:22::INFO >>> [conn=11] Closing connection
+28-Mar-23 15:26:22::INFO >>> [conn=11] Sending disconnect: Disconnected by application (11)
+28-Mar-23 15:26:22::INFO >>> [conn=11] Connection closed
+28-Mar-23 15:26:22::INFO >>> Opening SSH connection to 192.168.122.21, port 22
+28-Mar-23 15:26:22::INFO >>> [conn=12] Connected to SSH server at 192.168.122.21, port 22
+28-Mar-23 15:26:22::INFO >>> [conn=12]   Local address: 192.168.16.32, port 55787
+28-Mar-23 15:26:22::INFO >>> [conn=12]   Peer address: 192.168.122.21, port 22
+28-Mar-23 15:26:22::INFO >>> [conn=12] Beginning auth for user amsort
+28-Mar-23 15:26:23::INFO >>> [conn=12] Auth for user amsort succeeded
+28-Mar-23 15:26:23::INFO >>> [conn=12, chan=0] Requesting new SSH session
+28-Mar-23 15:26:23::INFO >>> [conn=12, chan=0]   Command: tail -n 3000 ~/PHS/logs/(date +%Y_%m_%d)_logging.log | grep a
+28-Mar-23 15:26:23::INFO >>> [conn=12, chan=0] Received exit status 0
+28-Mar-23 15:26:23::INFO >>> [conn=12, chan=0] Received channel close
+28-Mar-23 15:26:23::INFO >>> [conn=12, chan=0] Channel closed
+28-Mar-23 15:26:23::INFO >>> [conn=12] Closing connection
+28-Mar-23 15:26:23::INFO >>> [conn=12] Sending disconnect: Disconnected by application (11)
+28-Mar-23 15:26:23::INFO >>> [conn=12] Connection closed
+28-Mar-23 15:26:23::INFO >>> Opening SSH connection to 192.168.122.21, port 22
+28-Mar-23 15:26:23::INFO >>> [conn=13] Connected to SSH server at 192.168.122.21, port 22
+28-Mar-23 15:26:23::INFO >>> [conn=13]   Local address: 192.168.16.32, port 55790
+28-Mar-23 15:26:23::INFO >>> [conn=13]   Peer address: 192.168.122.21, port 22
+28-Mar-23 15:26:23::INFO >>> [conn=13] Beginning auth for user amsort
+28-Mar-23 15:26:23::INFO >>> [conn=13] Auth for user amsort succeeded
+28-Mar-23 15:26:23::INFO >>> [conn=13, chan=0] Requesting new SSH session
+28-Mar-23 15:26:24::INFO >>> [conn=13, chan=0]   Command: tail -n 3000 ~/PHS/logs/(date +%Y_%m_%d)_logging.log | grep a
+28-Mar-23 15:26:24::INFO >>> [conn=13, chan=0] Received exit status 0
+28-Mar-23 15:26:24::INFO >>> [conn=13, chan=0] Received channel close
+28-Mar-23 15:26:24::INFO >>> [conn=13, chan=0] Channel closed
+28-Mar-23 15:26:24::INFO >>> [conn=13] Closing connection
+28-Mar-23 15:26:24::INFO >>> [conn=13] Sending disconnect: Disconnected by application (11)
+28-Mar-23 15:26:24::INFO >>> [conn=13] Connection closed
