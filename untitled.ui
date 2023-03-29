@@ -16,7 +16,7 @@
   <property name="styleSheet">
    <string notr="true">*{
 	color:#fff;
-	font:25px  &quot;Lucida Sans&quot;;
+	font:20px  &quot;Lucida Sans&quot;;
 	
 }
 QWidget{
@@ -28,6 +28,22 @@ QPushButton{
 	color:#fff;
 	background-color:#555555;
 	border-radius: 10px;
+	padding:5px;
+}
+
+QPushButton{
+	color:#fff;
+	background-color:#555555;
+	border-radius: 10px;
+}
+
+QPushButton::hover{
+	background-color:#111;
+}
+
+QPushButton::pressed{
+	color:#111;
+	background-color:#22aa33;
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -139,21 +155,42 @@ QTextEdit{
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_2">
-           <item>
-            <widget class="QLabel" name="label_3">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
+          <property name="maximumSize">
+           <size>
+            <width>300</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QLineEdit{
+
+font-size:12px;
+padding:5px;
+}
+
+QLabel{
+
+font-size:12px;
+}</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_4">
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item row="5" column="1">
+            <widget class="QLineEdit" name="p3">
              <property name="text">
-              <string>Wybrany curl:</string>
+              <string/>
              </property>
             </widget>
            </item>
-           <item>
+           <item row="6" column="1">
+            <widget class="QLineEdit" name="p4"/>
+           </item>
+           <item row="20" column="1" alignment="Qt::AlignBottom">
             <widget class="QLabel" name="label_4">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
@@ -164,15 +201,158 @@ QTextEdit{
              <property name="text">
               <string>Podgląd:</string>
              </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
             </widget>
            </item>
-           <item>
-            <widget class="QSpinBox" name="maxLineLogLive">
+           <item row="3" column="0">
+            <widget class="QLabel" name="p1label">
+             <property name="text">
+              <string>Parametr 1:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="0">
+            <widget class="QLabel" name="p5label">
+             <property name="text">
+              <string>Parametr 5:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <widget class="QLabel" name="p3label">
+             <property name="text">
+              <string>Parametr 3:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QLineEdit" name="p2"/>
+           </item>
+           <item row="0" column="1" alignment="Qt::AlignTop">
+            <widget class="QLabel" name="label_3">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Wybrany curl:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="11" column="0">
+            <widget class="QLabel" name="p9label">
+             <property name="text">
+              <string>Parametr 9:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="10" column="0">
+            <widget class="QLabel" name="p8label">
+             <property name="text">
+              <string>Parametr 8:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="0">
+            <widget class="QLabel" name="p7label">
+             <property name="text">
+              <string>Parametr 7:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="11" column="1">
+            <widget class="QLineEdit" name="p9"/>
+           </item>
+           <item row="15" column="0" colspan="2">
+            <widget class="QLabel" name="label_20">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <family>MS Shell Dlg 2</family>
+               <pointsize>-1</pointsize>
+               <weight>75</weight>
+               <italic>false</italic>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">margin-top:20px;
+font-weight:bold;</string>
+             </property>
+             <property name="text">
+              <string>Info curl:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="16" column="0" colspan="2">
+            <widget class="QLabel" name="infoCurlLabel">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>-</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="12" column="0">
+            <widget class="QLabel" name="p10label">
+             <property name="text">
+              <string>Parametr 10:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="12" column="1">
+            <widget class="QLineEdit" name="p10"/>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_6">
+             <property name="text">
+              <string>Ilość logów
+live:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_7">
+             <property name="text">
+              <string>Czcionka:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QSpinBox" name="maxLineLogLive">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>9999</width>
+               <height>16777215</height>
+              </size>
              </property>
              <property name="buttonSymbols">
               <enum>QAbstractSpinBox::NoButtons</enum>
@@ -182,10 +362,10 @@ QTextEdit{
              </property>
             </widget>
            </item>
-           <item>
+           <item row="2" column="1">
             <widget class="QSpinBox" name="fontSize">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
@@ -195,35 +375,44 @@ QTextEdit{
              </property>
             </widget>
            </item>
-           <item>
-            <widget class="QPushButton" name="stopLiveLog">
+           <item row="4" column="0">
+            <widget class="QLabel" name="p2label">
              <property name="text">
-              <string>Stop live</string>
+              <string>Parametr 2:</string>
              </property>
             </widget>
            </item>
-           <item>
-            <widget class="QPushButton" name="startLiveLog">
+           <item row="8" column="0">
+            <widget class="QLabel" name="p6label">
              <property name="text">
-              <string>Start live</string>
+              <string>Parametr 6:</string>
              </property>
             </widget>
            </item>
-           <item>
-            <widget class="QPushButton" name="pushButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
+           <item row="3" column="1">
+            <widget class="QLineEdit" name="p1"/>
+           </item>
+           <item row="6" column="0">
+            <widget class="QLabel" name="p4label">
              <property name="text">
-              <string>Wyślij</string>
+              <string>Parametr 4:</string>
              </property>
             </widget>
            </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_2">
+           <item row="8" column="1">
+            <widget class="QLineEdit" name="p6"/>
+           </item>
+           <item row="7" column="1">
+            <widget class="QLineEdit" name="p5"/>
+           </item>
+           <item row="9" column="1">
+            <widget class="QLineEdit" name="p7"/>
+           </item>
+           <item row="10" column="1">
+            <widget class="QLineEdit" name="p8"/>
+           </item>
+           <item row="19" column="0">
+            <widget class="QPushButton" name="backPushButton">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                <horstretch>0</horstretch>
@@ -232,6 +421,19 @@ QTextEdit{
              </property>
              <property name="text">
               <string>Powrót</string>
+             </property>
+            </widget>
+           </item>
+           <item row="19" column="1">
+            <widget class="QPushButton" name="sendPushButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Wyślij</string>
              </property>
             </widget>
            </item>
@@ -252,8 +454,21 @@ QTextEdit{
             <height>0</height>
            </size>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout">
-           <item>
+          <layout class="QGridLayout" name="gridLayout_5">
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item row="2" column="4">
+            <widget class="QPushButton" name="stopLiveLog">
+             <property name="text">
+              <string>Stop live</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2" colspan="3">
             <widget class="QTextEdit" name="logPHSLive">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -266,26 +481,78 @@ QTextEdit{
              </property>
             </widget>
            </item>
-           <item>
-            <widget class="QLineEdit" name="grepLineEdit">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>a</string>
-             </property>
-            </widget>
-           </item>
-           <item>
+           <item row="4" column="2" colspan="3">
             <widget class="QTextEdit" name="logAfterCurl">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="2" colspan="3">
+            <widget class="QLabel" name="finishedCurl">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">font-size:12px;</string>
+             </property>
+             <property name="text">
+              <string>gotowy curl ------------------------------------------------------------</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="2">
+            <widget class="QLabel" name="label_8">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Filtr logów live:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="3">
+            <widget class="QPushButton" name="startLiveLog">
+             <property name="text">
+              <string>Start live</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2" colspan="3">
+            <widget class="QLabel" name="checgedCurl">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">font-size:12px;</string>
+             </property>
+             <property name="text">
+              <string>wybrany cur l---------------------------------------------------------------------</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="3" colspan="2">
+            <widget class="QLineEdit" name="grepLineEdit">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string/>
              </property>
             </widget>
            </item>
