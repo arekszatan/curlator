@@ -1,7 +1,7 @@
 {
-	"ip": "192.168.1.177",
-	"username": "arek",
-	"password": "arek",
+	"ip": "192.168.122.25",
+	"username": "amsort",
+	"password": "amsort25@%",
     "curls":
     [
       {
@@ -59,7 +59,11 @@
       {
         "shortInfo": "Koniec pickingu w strefie",
         "curl": "curl --data \"element=pl.amsort.phs.herbalife.order.CompletationOrderProviderImpl&callMethod=testFinishPicking&params=2&t1=str&t2=int&p1=]C0212&p2=1\" http://localhost:8080/srvlt/order"
-      }    
+      },
+      {
+        "shortInfo": "Testowy curl do zabka test",
+        "curl": "curl --data \"element=pl.amsort.phs.zabka.locations.LocationsProviderImpl&callMethod=testBarcodeAt&params=2&t1=str&t2=str&p1=W-001&p2=]C0:WOZEK1:1111:\" http://localhost:8080/srvlt/order"
+      }
 
     ]
 }

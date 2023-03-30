@@ -17,8 +17,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QGridLayout, QHBoxLayout,
     QLabel, QLineEdit, QListWidget, QListWidgetItem,
-    QMainWindow, QPushButton, QSizePolicy, QSpinBox,
-    QStackedWidget, QTextEdit, QWidget)
+    QMainWindow, QPushButton, QSizePolicy, QSpacerItem,
+    QSpinBox, QStackedWidget, QTextEdit, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -40,12 +40,6 @@ class Ui_MainWindow(object):
 "	background-color:#555555;\n"
 "	border-radius: 10px;\n"
 "	padding:5px;\n"
-"}\n"
-"\n"
-"QPushButton{\n"
-"	color:#fff;\n"
-"	background-color:#555555;\n"
-"	border-radius: 10px;\n"
 "}\n"
 "\n"
 "QPushButton::hover{\n"
@@ -153,74 +147,45 @@ class Ui_MainWindow(object):
         self.gridLayout_4 = QGridLayout(self.widget_2)
         self.gridLayout_4.setObjectName(u"gridLayout_4")
         self.gridLayout_4.setContentsMargins(-1, 0, -1, 0)
-        self.p3 = QLineEdit(self.widget_2)
-        self.p3.setObjectName(u"p3")
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
-        self.gridLayout_4.addWidget(self.p3, 5, 1, 1, 1)
+        self.gridLayout_4.addItem(self.verticalSpacer, 4, 0, 1, 1)
 
-        self.p4 = QLineEdit(self.widget_2)
-        self.p4.setObjectName(u"p4")
+        self.p9label = QLabel(self.widget_2)
+        self.p9label.setObjectName(u"p9label")
 
-        self.gridLayout_4.addWidget(self.p4, 6, 1, 1, 1)
-
-        self.label_4 = QLabel(self.widget_2)
-        self.label_4.setObjectName(u"label_4")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Maximum)
-        sizePolicy2.setHorizontalStretch(0)
-        sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.label_4.sizePolicy().hasHeightForWidth())
-        self.label_4.setSizePolicy(sizePolicy2)
-        self.label_4.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
-
-        self.gridLayout_4.addWidget(self.label_4, 20, 1, 1, 1, Qt.AlignBottom)
-
-        self.p1label = QLabel(self.widget_2)
-        self.p1label.setObjectName(u"p1label")
-
-        self.gridLayout_4.addWidget(self.p1label, 3, 0, 1, 1)
-
-        self.p5label = QLabel(self.widget_2)
-        self.p5label.setObjectName(u"p5label")
-
-        self.gridLayout_4.addWidget(self.p5label, 7, 0, 1, 1)
+        self.gridLayout_4.addWidget(self.p9label, 13, 0, 1, 1)
 
         self.p3label = QLabel(self.widget_2)
         self.p3label.setObjectName(u"p3label")
 
-        self.gridLayout_4.addWidget(self.p3label, 5, 0, 1, 1)
+        self.gridLayout_4.addWidget(self.p3label, 7, 0, 1, 1)
 
         self.p2 = QLineEdit(self.widget_2)
         self.p2.setObjectName(u"p2")
 
-        self.gridLayout_4.addWidget(self.p2, 4, 1, 1, 1)
+        self.gridLayout_4.addWidget(self.p2, 6, 1, 1, 1)
 
         self.label_3 = QLabel(self.widget_2)
         self.label_3.setObjectName(u"label_3")
+        sizePolicy2 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Maximum)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
         sizePolicy2.setHeightForWidth(self.label_3.sizePolicy().hasHeightForWidth())
         self.label_3.setSizePolicy(sizePolicy2)
         self.label_3.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
 
         self.gridLayout_4.addWidget(self.label_3, 0, 1, 1, 1, Qt.AlignTop)
 
-        self.p9label = QLabel(self.widget_2)
-        self.p9label.setObjectName(u"p9label")
+        self.p1label = QLabel(self.widget_2)
+        self.p1label.setObjectName(u"p1label")
 
-        self.gridLayout_4.addWidget(self.p9label, 11, 0, 1, 1)
+        self.gridLayout_4.addWidget(self.p1label, 5, 0, 1, 1)
 
-        self.p8label = QLabel(self.widget_2)
-        self.p8label.setObjectName(u"p8label")
+        self.p5label = QLabel(self.widget_2)
+        self.p5label.setObjectName(u"p5label")
 
-        self.gridLayout_4.addWidget(self.p8label, 10, 0, 1, 1)
-
-        self.p7label = QLabel(self.widget_2)
-        self.p7label.setObjectName(u"p7label")
-
-        self.gridLayout_4.addWidget(self.p7label, 9, 0, 1, 1)
-
-        self.p9 = QLineEdit(self.widget_2)
-        self.p9.setObjectName(u"p9")
-
-        self.gridLayout_4.addWidget(self.p9, 11, 1, 1, 1)
+        self.gridLayout_4.addWidget(self.p5label, 9, 0, 1, 1)
 
         self.label_20 = QLabel(self.widget_2)
         self.label_20.setObjectName(u"label_20")
@@ -235,7 +200,7 @@ class Ui_MainWindow(object):
 "font-weight:bold;")
         self.label_20.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout_4.addWidget(self.label_20, 15, 0, 1, 2)
+        self.gridLayout_4.addWidget(self.label_20, 19, 0, 1, 2)
 
         self.infoCurlLabel = QLabel(self.widget_2)
         self.infoCurlLabel.setObjectName(u"infoCurlLabel")
@@ -243,27 +208,48 @@ class Ui_MainWindow(object):
         self.infoCurlLabel.setSizePolicy(sizePolicy2)
         self.infoCurlLabel.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout_4.addWidget(self.infoCurlLabel, 16, 0, 1, 2)
+        self.gridLayout_4.addWidget(self.infoCurlLabel, 20, 0, 1, 2)
 
-        self.p10label = QLabel(self.widget_2)
-        self.p10label.setObjectName(u"p10label")
+        self.p9 = QLineEdit(self.widget_2)
+        self.p9.setObjectName(u"p9")
 
-        self.gridLayout_4.addWidget(self.p10label, 12, 0, 1, 1)
+        self.gridLayout_4.addWidget(self.p9, 13, 1, 1, 1)
 
-        self.p10 = QLineEdit(self.widget_2)
-        self.p10.setObjectName(u"p10")
+        self.p7label = QLabel(self.widget_2)
+        self.p7label.setObjectName(u"p7label")
 
-        self.gridLayout_4.addWidget(self.p10, 12, 1, 1, 1)
+        self.gridLayout_4.addWidget(self.p7label, 11, 0, 1, 1)
 
-        self.label_6 = QLabel(self.widget_2)
-        self.label_6.setObjectName(u"label_6")
+        self.p8label = QLabel(self.widget_2)
+        self.p8label.setObjectName(u"p8label")
 
-        self.gridLayout_4.addWidget(self.label_6, 1, 0, 1, 1)
+        self.gridLayout_4.addWidget(self.p8label, 12, 0, 1, 1)
 
-        self.label_7 = QLabel(self.widget_2)
-        self.label_7.setObjectName(u"label_7")
+        self.p4 = QLineEdit(self.widget_2)
+        self.p4.setObjectName(u"p4")
 
-        self.gridLayout_4.addWidget(self.label_7, 2, 0, 1, 1)
+        self.gridLayout_4.addWidget(self.p4, 8, 1, 1, 1)
+
+        self.p3 = QLineEdit(self.widget_2)
+        self.p3.setObjectName(u"p3")
+
+        self.gridLayout_4.addWidget(self.p3, 7, 1, 1, 1)
+
+        self.label_4 = QLabel(self.widget_2)
+        self.label_4.setObjectName(u"label_4")
+        sizePolicy2.setHeightForWidth(self.label_4.sizePolicy().hasHeightForWidth())
+        self.label_4.setSizePolicy(sizePolicy2)
+        self.label_4.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+
+        self.gridLayout_4.addWidget(self.label_4, 24, 1, 1, 1, Qt.AlignBottom)
+
+        self.fontSize = QSpinBox(self.widget_2)
+        self.fontSize.setObjectName(u"fontSize")
+        sizePolicy2.setHeightForWidth(self.fontSize.sizePolicy().hasHeightForWidth())
+        self.fontSize.setSizePolicy(sizePolicy2)
+        self.fontSize.setButtonSymbols(QAbstractSpinBox.NoButtons)
+
+        self.gridLayout_4.addWidget(self.fontSize, 2, 1, 1, 1)
 
         self.maxLineLogLive = QSpinBox(self.widget_2)
         self.maxLineLogLive.setObjectName(u"maxLineLogLive")
@@ -275,67 +261,127 @@ class Ui_MainWindow(object):
 
         self.gridLayout_4.addWidget(self.maxLineLogLive, 1, 1, 1, 1)
 
-        self.fontSize = QSpinBox(self.widget_2)
-        self.fontSize.setObjectName(u"fontSize")
-        sizePolicy2.setHeightForWidth(self.fontSize.sizePolicy().hasHeightForWidth())
-        self.fontSize.setSizePolicy(sizePolicy2)
-        self.fontSize.setButtonSymbols(QAbstractSpinBox.NoButtons)
+        self.p1 = QLineEdit(self.widget_2)
+        self.p1.setObjectName(u"p1")
 
-        self.gridLayout_4.addWidget(self.fontSize, 2, 1, 1, 1)
+        self.gridLayout_4.addWidget(self.p1, 5, 1, 1, 1)
 
         self.p2label = QLabel(self.widget_2)
         self.p2label.setObjectName(u"p2label")
 
-        self.gridLayout_4.addWidget(self.p2label, 4, 0, 1, 1)
+        self.gridLayout_4.addWidget(self.p2label, 6, 0, 1, 1)
 
         self.p6label = QLabel(self.widget_2)
         self.p6label.setObjectName(u"p6label")
 
-        self.gridLayout_4.addWidget(self.p6label, 8, 0, 1, 1)
-
-        self.p1 = QLineEdit(self.widget_2)
-        self.p1.setObjectName(u"p1")
-
-        self.gridLayout_4.addWidget(self.p1, 3, 1, 1, 1)
+        self.gridLayout_4.addWidget(self.p6label, 10, 0, 1, 1)
 
         self.p4label = QLabel(self.widget_2)
         self.p4label.setObjectName(u"p4label")
 
-        self.gridLayout_4.addWidget(self.p4label, 6, 0, 1, 1)
+        self.gridLayout_4.addWidget(self.p4label, 8, 0, 1, 1)
 
-        self.p6 = QLineEdit(self.widget_2)
-        self.p6.setObjectName(u"p6")
+        self.label_6 = QLabel(self.widget_2)
+        self.label_6.setObjectName(u"label_6")
 
-        self.gridLayout_4.addWidget(self.p6, 8, 1, 1, 1)
+        self.gridLayout_4.addWidget(self.label_6, 1, 0, 1, 1)
 
-        self.p5 = QLineEdit(self.widget_2)
-        self.p5.setObjectName(u"p5")
+        self.p10label = QLabel(self.widget_2)
+        self.p10label.setObjectName(u"p10label")
 
-        self.gridLayout_4.addWidget(self.p5, 7, 1, 1, 1)
+        self.gridLayout_4.addWidget(self.p10label, 14, 0, 1, 1)
 
-        self.p7 = QLineEdit(self.widget_2)
-        self.p7.setObjectName(u"p7")
+        self.p10 = QLineEdit(self.widget_2)
+        self.p10.setObjectName(u"p10")
 
-        self.gridLayout_4.addWidget(self.p7, 9, 1, 1, 1)
+        self.gridLayout_4.addWidget(self.p10, 14, 1, 1, 1)
+
+        self.label_7 = QLabel(self.widget_2)
+        self.label_7.setObjectName(u"label_7")
+
+        self.gridLayout_4.addWidget(self.label_7, 2, 0, 1, 1)
 
         self.p8 = QLineEdit(self.widget_2)
         self.p8.setObjectName(u"p8")
 
-        self.gridLayout_4.addWidget(self.p8, 10, 1, 1, 1)
+        self.gridLayout_4.addWidget(self.p8, 12, 1, 1, 1)
 
-        self.backPushButton = QPushButton(self.widget_2)
-        self.backPushButton.setObjectName(u"backPushButton")
-        sizePolicy2.setHeightForWidth(self.backPushButton.sizePolicy().hasHeightForWidth())
-        self.backPushButton.setSizePolicy(sizePolicy2)
+        self.p5 = QLineEdit(self.widget_2)
+        self.p5.setObjectName(u"p5")
 
-        self.gridLayout_4.addWidget(self.backPushButton, 19, 0, 1, 1)
+        self.gridLayout_4.addWidget(self.p5, 9, 1, 1, 1)
+
+        self.p6 = QLineEdit(self.widget_2)
+        self.p6.setObjectName(u"p6")
+
+        self.gridLayout_4.addWidget(self.p6, 10, 1, 1, 1)
+
+        self.p7 = QLineEdit(self.widget_2)
+        self.p7.setObjectName(u"p7")
+
+        self.gridLayout_4.addWidget(self.p7, 11, 1, 1, 1)
 
         self.sendPushButton = QPushButton(self.widget_2)
         self.sendPushButton.setObjectName(u"sendPushButton")
         sizePolicy2.setHeightForWidth(self.sendPushButton.sizePolicy().hasHeightForWidth())
         self.sendPushButton.setSizePolicy(sizePolicy2)
 
-        self.gridLayout_4.addWidget(self.sendPushButton, 19, 1, 1, 1)
+        self.gridLayout_4.addWidget(self.sendPushButton, 23, 1, 1, 1)
+
+        self.backPushButton = QPushButton(self.widget_2)
+        self.backPushButton.setObjectName(u"backPushButton")
+        sizePolicy2.setHeightForWidth(self.backPushButton.sizePolicy().hasHeightForWidth())
+        self.backPushButton.setSizePolicy(sizePolicy2)
+
+        self.gridLayout_4.addWidget(self.backPushButton, 23, 0, 1, 1)
+
+        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.gridLayout_4.addItem(self.verticalSpacer_2, 15, 0, 1, 1)
+
+        self.label_9 = QLabel(self.widget_2)
+        self.label_9.setObjectName(u"label_9")
+
+        self.gridLayout_4.addWidget(self.label_9, 16, 0, 1, 1)
+
+        self.countLineForCurl = QSpinBox(self.widget_2)
+        self.countLineForCurl.setObjectName(u"countLineForCurl")
+        self.countLineForCurl.setButtonSymbols(QAbstractSpinBox.NoButtons)
+        self.countLineForCurl.setValue(10)
+
+        self.gridLayout_4.addWidget(self.countLineForCurl, 16, 1, 1, 1)
+
+        self.label_5 = QLabel(self.widget_2)
+        self.label_5.setObjectName(u"label_5")
+        self.label_5.setStyleSheet(u"spacing-bottom:20px;")
+
+        self.gridLayout_4.addWidget(self.label_5, 3, 0, 1, 1)
+
+        self.timerPHSLive = QSpinBox(self.widget_2)
+        self.timerPHSLive.setObjectName(u"timerPHSLive")
+        self.timerPHSLive.setStyleSheet(u"")
+        self.timerPHSLive.setButtonSymbols(QAbstractSpinBox.NoButtons)
+        self.timerPHSLive.setMinimum(100)
+        self.timerPHSLive.setMaximum(2000)
+        self.timerPHSLive.setSingleStep(100)
+        self.timerPHSLive.setValue(1000)
+
+        self.gridLayout_4.addWidget(self.timerPHSLive, 3, 1, 1, 1)
+
+        self.label_10 = QLabel(self.widget_2)
+        self.label_10.setObjectName(u"label_10")
+
+        self.gridLayout_4.addWidget(self.label_10, 17, 0, 1, 1)
+
+        self.delayForCurlResponse = QSpinBox(self.widget_2)
+        self.delayForCurlResponse.setObjectName(u"delayForCurlResponse")
+        self.delayForCurlResponse.setButtonSymbols(QAbstractSpinBox.NoButtons)
+        self.delayForCurlResponse.setMinimum(100)
+        self.delayForCurlResponse.setMaximum(5000)
+        self.delayForCurlResponse.setSingleStep(100)
+        self.delayForCurlResponse.setValue(1000)
+
+        self.gridLayout_4.addWidget(self.delayForCurlResponse, 17, 1, 1, 1)
 
 
         self.horizontalLayout.addWidget(self.widget_2)
@@ -433,26 +479,30 @@ class Ui_MainWindow(object):
         self.helpButton.setText(QCoreApplication.translate("MainWindow", u"Pomoc", None))
         self.infoHomePage.setText("")
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Wybierz curla:", None))
-        self.p3.setText("")
-        self.label_4.setText(QCoreApplication.translate("MainWindow", u"Podgl\u0105d:", None))
-        self.p1label.setText(QCoreApplication.translate("MainWindow", u"Parametr 1:", None))
-        self.p5label.setText(QCoreApplication.translate("MainWindow", u"Parametr 5:", None))
+        self.p9label.setText(QCoreApplication.translate("MainWindow", u"Parametr 9:", None))
         self.p3label.setText(QCoreApplication.translate("MainWindow", u"Parametr 3:", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"Wybrany curl:", None))
-        self.p9label.setText(QCoreApplication.translate("MainWindow", u"Parametr 9:", None))
-        self.p8label.setText(QCoreApplication.translate("MainWindow", u"Parametr 8:", None))
-        self.p7label.setText(QCoreApplication.translate("MainWindow", u"Parametr 7:", None))
+        self.p1label.setText(QCoreApplication.translate("MainWindow", u"Parametr 1:", None))
+        self.p5label.setText(QCoreApplication.translate("MainWindow", u"Parametr 5:", None))
         self.label_20.setText(QCoreApplication.translate("MainWindow", u"Info curl:", None))
         self.infoCurlLabel.setText(QCoreApplication.translate("MainWindow", u"-", None))
-        self.p10label.setText(QCoreApplication.translate("MainWindow", u"Parametr 10:", None))
-        self.label_6.setText(QCoreApplication.translate("MainWindow", u"Ilo\u015b\u0107 log\u00f3w\n"
-"live:", None))
-        self.label_7.setText(QCoreApplication.translate("MainWindow", u"Czcionka:", None))
+        self.p7label.setText(QCoreApplication.translate("MainWindow", u"Parametr 7:", None))
+        self.p8label.setText(QCoreApplication.translate("MainWindow", u"Parametr 8:", None))
+        self.p3.setText("")
+        self.label_4.setText(QCoreApplication.translate("MainWindow", u"Podgl\u0105d:", None))
         self.p2label.setText(QCoreApplication.translate("MainWindow", u"Parametr 2:", None))
         self.p6label.setText(QCoreApplication.translate("MainWindow", u"Parametr 6:", None))
         self.p4label.setText(QCoreApplication.translate("MainWindow", u"Parametr 4:", None))
-        self.backPushButton.setText(QCoreApplication.translate("MainWindow", u"Powr\u00f3t", None))
+        self.label_6.setText(QCoreApplication.translate("MainWindow", u"Ilo\u015b\u0107 log\u00f3w\n"
+"live:", None))
+        self.p10label.setText(QCoreApplication.translate("MainWindow", u"Parametr 10:", None))
+        self.label_7.setText(QCoreApplication.translate("MainWindow", u"Czcionka:", None))
         self.sendPushButton.setText(QCoreApplication.translate("MainWindow", u"Wy\u015blij", None))
+        self.backPushButton.setText(QCoreApplication.translate("MainWindow", u"Powr\u00f3t", None))
+        self.label_9.setText(QCoreApplication.translate("MainWindow", u"Ilo\u015b\u0107 zwracanych\n"
+"lini z curla:", None))
+        self.label_5.setText(QCoreApplication.translate("MainWindow", u"Od\u015bwie\u017canie:", None))
+        self.label_10.setText(QCoreApplication.translate("MainWindow", u"Delay[ms]:", None))
         self.stopLiveLog.setText(QCoreApplication.translate("MainWindow", u"Stop live", None))
         self.finishedCurl.setText(QCoreApplication.translate("MainWindow", u"gotowy curl ------------------------------------------------------------", None))
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"Filtr log\u00f3w live:", None))

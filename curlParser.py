@@ -2,8 +2,6 @@ import logging
 
 
 class CurlParser:
-    def __init__(self):
-        pass
 
     def getTypeOfCurl(self, curl):
         if curl.find("&methodString") != -1:
@@ -38,3 +36,24 @@ class CurlParser:
                 paramter = paramter[:indexedn1]
             tablicaParametrow.append(paramter)
         return tablicaParametrow
+
+    def createFinishCurlMethodString(self, curl, param):
+        curlnew = curl[:curl.find("&p=") + 3]
+        curlnew = curlnew + str(param[0]) + self.getEndofCurl(curl)
+        return curlnew
+
+    def createFinishCurlCallMethod(self, curl, param):
+        if len(param) > 0:
+            newCurl = curl[:curl.find("&p1")]
+        else:
+            newCurl = curl[:curl.find('" ')]
+        i = 1
+        for p in param:
+            newCurl = newCurl + "&p" + str(i) + "=" + str(p)
+            i += 1
+        newCurl = newCurl + self.getEndofCurl(curl)
+        return newCurl
+
+    def getEndofCurl(self, curl):
+        curl = '" ' + curl.split()[3]
+        return str(curl)

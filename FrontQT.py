@@ -5,7 +5,7 @@ import sys
 import qasync
 from PySide6 import QtWidgets
 from PySide6.QtWidgets import QFileDialog
-from PySide6.QtCore import QTimer
+from PySide6.QtCore import QTimer, Signal
 import asyncioClass
 from MainWindow import Ui_MainWindow
 from curlParser import CurlParser
@@ -15,12 +15,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
     def __init__(self):
         super(MainWindow, self).__init__()
         self.setupUi(self)
-        self.setConnectionObject()
 
         # Timer to live logging
         self.timer = QTimer()
         self.timer.timeout.connect(self.liveLogTimerFunction)
-        self.timer.start(1000)
 
         # Variable
         self.data = None
@@ -47,6 +45,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
 
         # Curl parser
         self.CurlParser = CurlParser()
+        self.setConnectionObject()
 
     def setInitStartValue(self):
         self.stackedWidget.setCurrentIndex(0)
@@ -75,6 +74,11 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
         self.finishedSendCurl.connect(self.finishedSendCurlFun)
         self.outputCmd.connect(self.outputCmdFun)
         self.errorSendCurl.connect(self.errorSendCurlFun)
+        self.curlCallBackSignal.connect(self.curlCallBackFun)
+
+        # Connect text change line edit to end curl
+        for param, label in self.listOfParametr:
+            param.textChanged.connect(self.setOnlyActulCurl)
 
     def openJson(self):  # Function to open file dialog, decode JSON file and start local or ssh version
         logging.info(f'Opening QFileDialog ...')
@@ -92,7 +96,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
             else:
                 logging.info("Starting ssh Curlator ...")
                 self.infoHomePage.setText(f'Curlator startuje dla {self.data["ip"]} ...')
-                self.checkConnectionSSH(self.data['ip'], self.data['username'], self.data['password'], "ls")
+                self.checkConnectionSSH(self.data['ip'], self.data['username'], self.data['password'])
         except ValueError:
             logging.exception(f'Can not open and decoding json file {path}')
             self.infoHomePage.setText(f'Wystąpil błąd podczas dekodowania pliku JSON !!!')
@@ -103,6 +107,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
 
     def loginSSH(self):  # First response of ssh is success and change Widget to list of Curls
         logging.info(f'Logging to {self.data["ip"]} is succesed')
+        self.runAsyncioCmdLiveLog(self.data['ip'], self.data['username'], self.data['password'])
         self.stackedWidget.setCurrentIndex(1)
         for i in self.data['curls']:
             self.listToJson.append(i['curl'])
@@ -123,11 +128,15 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
 
     def stratLogPHS(self):  # Push button start live log
         logging.info(f'Button start live was clicked')
-        self.timer.start()
+        self.timer.start(self.timerPHSLive.value())
+        self.startLiveLog.setStyleSheet("QPushButton{background-color:#11dd11;}")
+        self.stopLiveLog.setStyleSheet("QPushButton{background-color:#555555;}")
 
     def stopLogPHS(self):  # Push button stop live log
         logging.info(f'Button stop live was clicked')
         self.timer.stop()
+        self.startLiveLog.setStyleSheet("QPushButton{background-color:#555555;}")
+        self.stopLiveLog.setStyleSheet("QPushButton{background-color:#11dd11;}")
 
     def startedSendCurlFun(self):  # Start sending asynch curl to ssh
         logging.info(f'Curl is sending to execute ...')
@@ -136,6 +145,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
     def finishedSendCurlFun(self):  # Finished of send asynch curl to ssh with succeed
         logging.info(f'Curl sent and everything looks good <3')
         self.infoCurlLabel.setText("Curl został wysłany prawidłowo <3")
+        self.getCurlCallBack(self.data['ip'], self.data['username'], self.data['password'],
+                             f'grep -C{self.countLineForCurl.value()-1} " 127.0.0.1: Executing request"'
+                             f' ~/PHS/logs/(date +%Y_%m_%d)_logging.log | tail -{self.countLineForCurl.value()}',
+                             self.delayForCurlResponse.value()/1000)
 
     def errorSendCurlFun(self):
         self.infoCurlLabel.setText("Wystąpił błąd podczas wysyłania curla")
@@ -144,21 +157,22 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
         self.logPHSLive.setFontPointSize(self.fontSize.value())
         if self.stackedWidget.currentIndex() == 2:
             if self.grepLineEdit.text() == "":
-                self.runAsyncioCmdLiveLog(self.data['ip'], self.data['username'], self.data['password'],
-                                          f'journalctl -n {str(self.maxLineLogLive.value())}')
+                self.displayCdmLiveLog(f'tail -n {str(self.maxLineLogLive.value())}'
+                                       f' ~/PHS/logs/(date +%Y_%m_%d)_logging.log')
             else:
-                self.runAsyncioCmdLiveLog(self.data['ip'], self.data['username'], self.data['password'],
-                                          f'journalctl -n {str(self.maxLineLogLive.value())}'
-                                          f' | grep "{self.grepLineEdit.text()}"')
+                self.displayCdmLiveLog(f'tail -n {str(self.maxLineLogLive.value())}'
+                                       f' ~/PHS/logs/(date +%Y_%m_%d)_logging.log'
+                                       f' | grep "{self.grepLineEdit.text()}"')
 
     def outputCmdFun(self, out):  # Get result of live log PHS and display
-        self.logPHSLive.setText(out)
         if self.logPHSLive.toPlainText() != out:
-            pass
-        self.logPHSLive.verticalScrollBar().setValue(self.logPHSLive.verticalScrollBar().maximum() - 10)
+            self.logPHSLive.setText(out)
+        self.logPHSLive.verticalScrollBar().setValue(self.logPHSLive.verticalScrollBar().maximum())
 
     def sendCurlButton(self):  # Send Curl to execute push button
-        pass
+        logging.info(f'Button sending curl was clicked and send curl {self.finishedCurl.text()} to {self.data["ip"]}')
+        self.logAfterCurl.clear()
+        self.sendAsyncioCurl(self.data['ip'], self.data['username'], self.data['password'], self.finishedCurl.text())
 
     def backToCurls(self):  # Back to list of curls push button
         self.stackedWidget.setCurrentIndex(1)
@@ -167,7 +181,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
             param.setVisible(False)
             label.setVisible(False)
 
-    def setActualCurlandParam(self, curl):
+    def setActualCurlandParam(self, curl):  # First setting after double-click curl (param visible,param text)
         type = self.CurlParser.getTypeOfCurl(curl)
         if type == 1:
             param = self.CurlParser.getListOfParamForCurlMethodString(curl)
@@ -183,9 +197,23 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
                 self.listOfParametr[i][1].setVisible(True)
                 self.listOfParametr[i][0].setText(tablicaParam[i])
                 i += 1
-
-
         self.finishedCurl.setText(curl)
+
+    def setOnlyActulCurl(self):  # Function connected to text line edit textchanged
+        type = self.CurlParser.getTypeOfCurl(self.actualCurl)
+        param = []
+        for pa, label in self.listOfParametr:
+            if pa.isVisible():
+                param.append(pa.text())
+        if type == 1:
+            self.finishedCurl.setText(self.CurlParser.createFinishCurlMethodString(self.actualCurl, param))
+        elif type == 2:
+            self.finishedCurl.setText(self.CurlParser.createFinishCurlCallMethod(self.actualCurl, param))
+
+    def curlCallBackFun(self, out):  # Catch signal for sending curl and get call back output
+        logging.info("Get call back for curl")
+        self.logAfterCurl.setFontPointSize(self.fontSize.value())
+        self.logAfterCurl.setText(out)
 
 
 def startAplication():  # Start Application with qasync
