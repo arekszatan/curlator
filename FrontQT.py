@@ -2,10 +2,11 @@ import json
 import logging
 import os
 import sys
+from datetime import datetime
 import qasync
 from PySide6 import QtWidgets
 from PySide6.QtWidgets import QFileDialog
-from PySide6.QtCore import QTimer, Signal
+from PySide6.QtCore import QTimer
 import asyncioClass
 from MainWindow import Ui_MainWindow
 from curlParser import CurlParser
@@ -15,10 +16,13 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
     def __init__(self):
         super(MainWindow, self).__init__()
         self.setupUi(self)
+        self.setWindowTitle("Curlator")
 
         # Timer to live logging
         self.timer = QTimer()
         self.timer.timeout.connect(self.liveLogTimerFunction)
+        self.timerLocal = QTimer()
+        self.timerLocal.timeout.connect(self.liveLogTimerFunctionLocal)
 
         # Variable
         self.data = None
@@ -27,6 +31,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
         self.username = str
         self.password = str
         self.actualCurl = str
+        self.filePath = str
+        self.localAPP = bool
 
         # Set list of parameter for curl
         self.listToJson = []
@@ -63,6 +69,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
         self.stopLiveLog.clicked.connect(self.stopLogPHS)
         self.sendPushButton.clicked.connect(self.sendCurlButton)
         self.backPushButton.clicked.connect(self.backToCurls)
+        self.pathForLogButton.clicked.connect(self.setPathForLog)
 
         # Connect double-click list to function
         self.curlList.itemDoubleClicked.connect(self.listJsonDoubleClick)
@@ -75,6 +82,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
         self.outputCmd.connect(self.outputCmdFun)
         self.errorSendCurl.connect(self.errorSendCurlFun)
         self.curlCallBackSignal.connect(self.curlCallBackFun)
+        self.logLocalHostSignal.connect(self.logLocalHostFun)
+        self.logLocalHostSignalCurl.connect(self.logLocalHostCurlFun)
 
         # Connect text change line edit to end curl
         for param, label in self.listOfParametr:
@@ -90,14 +99,18 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
             self.data = json.load(f)
             f.close()
             if self.data['ip'] == "localhost" or self.data['ip'] == "":
+                self.localAPP = True
+                self.setWindowTitle("Curlator dla sesji lokalnej")
                 logging.info("Starting local Curlator ...")
                 self.infoHomePage.setText(f'Curlator startuje dla localhost ...')
-                # TO DO localhost version
+                self.loginLocal()
             else:
+                self.localAPP = False
+                self.setWindowTitle(f'Curlator dla {self.data["ip"]}')
                 logging.info("Starting ssh Curlator ...")
                 self.infoHomePage.setText(f'Curlator startuje dla {self.data["ip"]} ...')
                 self.checkConnectionSSH(self.data['ip'], self.data['username'], self.data['password'])
-        except ValueError:
+        except:
             logging.exception(f'Can not open and decoding json file {path}')
             self.infoHomePage.setText(f'Wystąpil błąd podczas dekodowania pliku JSON !!!')
 
@@ -112,6 +125,66 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
         for i in self.data['curls']:
             self.listToJson.append(i['curl'])
             self.curlList.addItem(i['shortInfo'])
+
+    def loginLocal(self):
+        self.stackedWidget.setCurrentIndex(3)
+        for i in self.data['curls']:
+            self.listToJson.append(i['curl'])
+            self.curlList.addItem(i['shortInfo'])
+
+    def setPathForLog(self):
+        logging.info(f'Opening QFileDialog ...')
+        try:
+            self.filePath = QFileDialog.getExistingDirectory(self, 'Open a folder', 'C:\\')
+            date = datetime.today().strftime('%Y_%m_%d_logging.log')
+            logging.info(f'Log file patch {self.filePath}/{date}')
+            self.pathInfoLabel.setText(f'{self.filePath}/{date}')
+            self.stackedWidget.setCurrentIndex(1)
+
+        except:
+            self.pathInfoLabel.setText(f'Nie udało sie wybrac odpowiedniego folderu')
+            logging.error(f'Nie udało sie wybrac odpowiedniego folderu')
+
+    def logLocalHostFun(self, outLog):
+        self.logPHSLive.setFontPointSize(self.fontSize.value())
+        self.logPHSLive.clear()
+        lenLogs = len(outLog) - self.maxLineLogLive.value()
+        i = 0
+        for log in outLog:
+            if i >= lenLogs:
+                if self.grepLineEdit.text() == "":
+                    log = log[:-1]
+                    if log != "\n":
+                        self.logPHSLive.append(log)
+                else:
+                    if log.find(self.grepLineEdit.text()) != -1:
+                        log = log[:-1]
+                        if log != "\n":
+                            self.logPHSLive.append(log)
+            i += 1
+
+    def logLocalHostCurlFun(self, outLog):
+        self.logAfterCurl.setFontPointSize(self.fontSize.value())
+        lenLogs = len(outLog)
+        i = lenLogs
+        findedLog = False
+        while i >= 0:
+            if outLog[i-1].find(" 127.0.0.1: Executing request") != -1:
+                findedLog = True
+                break
+            i -= 1
+        findLine = i
+        if findedLog:
+            while i < findLine + self.countLineForCurl.value() and i <= lenLogs:
+                log = outLog[i-1][:-1]
+                self.logAfterCurl.append(log)
+                i += 1
+        else:
+            self.logAfterCurl.append(f'Nie znalazłem call back dla curla')
+
+    def liveLogTimerFunctionLocal(self):
+        date = datetime.today().strftime('%Y_%m_%d_logging.log')
+        self.readFileOfLogs(f'{self.filePath}/{date}')
 
     def listJsonDoubleClick(self):  # Double-click on curl in list of curls
         self.stackedWidget.setCurrentIndex(2)
@@ -128,13 +201,19 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
 
     def stratLogPHS(self):  # Push button start live log
         logging.info(f'Button start live was clicked')
-        self.timer.start(self.timerPHSLive.value())
+        if self.localAPP:
+            self.timerLocal.start(self.timerPHSLive.value())
+        else:
+            self.timer.start(self.timerPHSLive.value())
         self.startLiveLog.setStyleSheet("QPushButton{background-color:#11dd11;}")
         self.stopLiveLog.setStyleSheet("QPushButton{background-color:#555555;}")
 
     def stopLogPHS(self):  # Push button stop live log
         logging.info(f'Button stop live was clicked')
-        self.timer.stop()
+        if self.localAPP:
+            self.timerLocal.stop()
+        else:
+            self.timer.stop()
         self.startLiveLog.setStyleSheet("QPushButton{background-color:#555555;}")
         self.stopLiveLog.setStyleSheet("QPushButton{background-color:#11dd11;}")
 
@@ -145,10 +224,14 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
     def finishedSendCurlFun(self):  # Finished of send asynch curl to ssh with succeed
         logging.info(f'Curl sent and everything looks good <3')
         self.infoCurlLabel.setText("Curl został wysłany prawidłowo <3")
-        self.getCurlCallBack(self.data['ip'], self.data['username'], self.data['password'],
-                             f'grep -C{self.countLineForCurl.value()-1} " 127.0.0.1: Executing request"'
-                             f' ~/PHS/logs/(date +%Y_%m_%d)_logging.log | tail -{self.countLineForCurl.value()}',
-                             self.delayForCurlResponse.value()/1000)
+        if self.localAPP:
+            date = datetime.today().strftime('%Y_%m_%d_logging.log')
+            self.getCurlCallBackLocal(f'{self.filePath}/{date}',self.delayForCurlResponse.value()/1000)
+        else:
+            self.getCurlCallBack(self.data['ip'], self.data['username'], self.data['password'],
+                                 f'grep -C{self.countLineForCurl.value()-1} " 127.0.0.1: Executing request"'
+                                 f' ~/PHS/logs/(date +%Y_%m_%d)_logging.log | tail -{self.countLineForCurl.value()}',
+                                 self.delayForCurlResponse.value()/1000)
 
     def errorSendCurlFun(self):
         self.infoCurlLabel.setText("Wystąpił błąd podczas wysyłania curla")
@@ -172,7 +255,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
     def sendCurlButton(self):  # Send Curl to execute push button
         logging.info(f'Button sending curl was clicked and send curl {self.finishedCurl.text()} to {self.data["ip"]}')
         self.logAfterCurl.clear()
-        self.sendAsyncioCurl(self.data['ip'], self.data['username'], self.data['password'], self.finishedCurl.text())
+        if self.localAPP:
+            self.sendLocalCurl(self.finishedCurl.text())
+        else:
+            self.sendAsyncioCurl(self.data['ip'], self.data['username'], self.data['password'], self.finishedCurl.text())
 
     def backToCurls(self):  # Back to list of curls push button
         self.stackedWidget.setCurrentIndex(1)
@@ -183,6 +269,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
 
     def setActualCurlandParam(self, curl):  # First setting after double-click curl (param visible,param text)
         type = self.CurlParser.getTypeOfCurl(curl)
+        logging.info(f'Type of curl {curl} is {type}')
         if type == 1:
             param = self.CurlParser.getListOfParamForCurlMethodString(curl)
             self.p1.setVisible(True)

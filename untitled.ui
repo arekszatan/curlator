@@ -10,6 +10,12 @@
     <height>786</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>853</width>
+    <height>786</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -588,6 +594,9 @@ lini z curla:</string>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
             </widget>
            </item>
            <item row="5" column="2" colspan="3">
@@ -660,13 +669,133 @@ lini z curla:</string>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page_5"/>
+      <widget class="QWidget" name="localHostPage">
+       <layout class="QGridLayout" name="gridLayout_6">
+        <item row="4" column="0">
+         <widget class="QLabel" name="pathInfoLabel">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QPushButton" name="pathForLogButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">font-size:40px;</string>
+          </property>
+          <property name="text">
+           <string>Wybierz folder do logów</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_11">
+          <property name="font">
+           <font>
+            <family>Lucida Sans</family>
+            <pointsize>-1</pointsize>
+            <weight>75</weight>
+            <italic>false</italic>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">font-weight:bold;
+font-size:40px;</string>
+          </property>
+          <property name="text">
+           <string>Ustawienia dla lokalnej Apki</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_12">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">font-size:30px;</string>
+          </property>
+          <property name="text">
+           <string>Wybierz folder gdzie znajdują się logi
+format logów powinien wyglądać np.
+( 2023_03_31_logging.log )</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <spacer name="verticalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Preferred</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="page_2"/>
      </widget>
     </item>
    </layout>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>p1</tabstop>
+  <tabstop>p2</tabstop>
+  <tabstop>p3</tabstop>
+  <tabstop>p4</tabstop>
+  <tabstop>p5</tabstop>
+  <tabstop>p6</tabstop>
+  <tabstop>p7</tabstop>
+  <tabstop>p8</tabstop>
+  <tabstop>p9</tabstop>
+  <tabstop>p10</tabstop>
+  <tabstop>sendPushButton</tabstop>
+  <tabstop>backPushButton</tabstop>
+  <tabstop>maxLineLogLive</tabstop>
+  <tabstop>helpButton</tabstop>
+  <tabstop>curlList</tabstop>
+  <tabstop>openJsonButton</tabstop>
+  <tabstop>fontSize</tabstop>
+  <tabstop>countLineForCurl</tabstop>
+  <tabstop>timerPHSLive</tabstop>
+  <tabstop>delayForCurlResponse</tabstop>
+  <tabstop>stopLiveLog</tabstop>
+  <tabstop>logPHSLive</tabstop>
+  <tabstop>logAfterCurl</tabstop>
+  <tabstop>startLiveLog</tabstop>
+  <tabstop>grepLineEdit</tabstop>
+  <tabstop>pathForLogButton</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

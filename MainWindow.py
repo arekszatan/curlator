@@ -25,6 +25,7 @@ class Ui_MainWindow(object):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(853, 786)
+        MainWindow.setMinimumSize(QSize(853, 786))
         MainWindow.setStyleSheet(u"*{\n"
 "	color:#fff;\n"
 "	font:20px  \"Lucida Sans\";\n"
@@ -411,6 +412,7 @@ class Ui_MainWindow(object):
         self.logAfterCurl.setObjectName(u"logAfterCurl")
         sizePolicy.setHeightForWidth(self.logAfterCurl.sizePolicy().hasHeightForWidth())
         self.logAfterCurl.setSizePolicy(sizePolicy)
+        self.logAfterCurl.setReadOnly(True)
 
         self.gridLayout_5.addWidget(self.logAfterCurl, 4, 2, 1, 3)
 
@@ -453,9 +455,52 @@ class Ui_MainWindow(object):
         self.horizontalLayout.addWidget(self.widget)
 
         self.stackedWidget.addWidget(self.curlPage)
-        self.page_5 = QWidget()
-        self.page_5.setObjectName(u"page_5")
-        self.stackedWidget.addWidget(self.page_5)
+        self.localHostPage = QWidget()
+        self.localHostPage.setObjectName(u"localHostPage")
+        self.gridLayout_6 = QGridLayout(self.localHostPage)
+        self.gridLayout_6.setObjectName(u"gridLayout_6")
+        self.pathInfoLabel = QLabel(self.localHostPage)
+        self.pathInfoLabel.setObjectName(u"pathInfoLabel")
+        sizePolicy2.setHeightForWidth(self.pathInfoLabel.sizePolicy().hasHeightForWidth())
+        self.pathInfoLabel.setSizePolicy(sizePolicy2)
+
+        self.gridLayout_6.addWidget(self.pathInfoLabel, 4, 0, 1, 1)
+
+        self.pathForLogButton = QPushButton(self.localHostPage)
+        self.pathForLogButton.setObjectName(u"pathForLogButton")
+        sizePolicy.setHeightForWidth(self.pathForLogButton.sizePolicy().hasHeightForWidth())
+        self.pathForLogButton.setSizePolicy(sizePolicy)
+        self.pathForLogButton.setStyleSheet(u"font-size:40px;")
+
+        self.gridLayout_6.addWidget(self.pathForLogButton, 3, 0, 1, 1)
+
+        self.label_11 = QLabel(self.localHostPage)
+        self.label_11.setObjectName(u"label_11")
+        font2 = QFont()
+        font2.setFamilies([u"Lucida Sans"])
+        font2.setBold(True)
+        font2.setItalic(False)
+        self.label_11.setFont(font2)
+        self.label_11.setStyleSheet(u"font-weight:bold;\n"
+"font-size:40px;")
+        self.label_11.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout_6.addWidget(self.label_11, 0, 0, 1, 1)
+
+        self.label_12 = QLabel(self.localHostPage)
+        self.label_12.setObjectName(u"label_12")
+        sizePolicy.setHeightForWidth(self.label_12.sizePolicy().hasHeightForWidth())
+        self.label_12.setSizePolicy(sizePolicy)
+        self.label_12.setStyleSheet(u"font-size:30px;")
+        self.label_12.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout_6.addWidget(self.label_12, 1, 0, 1, 1)
+
+        self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Preferred)
+
+        self.gridLayout_6.addItem(self.verticalSpacer_3, 2, 0, 1, 1)
+
+        self.stackedWidget.addWidget(self.localHostPage)
         self.page_2 = QWidget()
         self.page_2.setObjectName(u"page_2")
         self.stackedWidget.addWidget(self.page_2)
@@ -463,6 +508,31 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.stackedWidget, 0, 1, 1, 1)
 
         MainWindow.setCentralWidget(self.centralwidget)
+        QWidget.setTabOrder(self.p1, self.p2)
+        QWidget.setTabOrder(self.p2, self.p3)
+        QWidget.setTabOrder(self.p3, self.p4)
+        QWidget.setTabOrder(self.p4, self.p5)
+        QWidget.setTabOrder(self.p5, self.p6)
+        QWidget.setTabOrder(self.p6, self.p7)
+        QWidget.setTabOrder(self.p7, self.p8)
+        QWidget.setTabOrder(self.p8, self.p9)
+        QWidget.setTabOrder(self.p9, self.p10)
+        QWidget.setTabOrder(self.p10, self.sendPushButton)
+        QWidget.setTabOrder(self.sendPushButton, self.backPushButton)
+        QWidget.setTabOrder(self.backPushButton, self.maxLineLogLive)
+        QWidget.setTabOrder(self.maxLineLogLive, self.helpButton)
+        QWidget.setTabOrder(self.helpButton, self.curlList)
+        QWidget.setTabOrder(self.curlList, self.openJsonButton)
+        QWidget.setTabOrder(self.openJsonButton, self.fontSize)
+        QWidget.setTabOrder(self.fontSize, self.countLineForCurl)
+        QWidget.setTabOrder(self.countLineForCurl, self.timerPHSLive)
+        QWidget.setTabOrder(self.timerPHSLive, self.delayForCurlResponse)
+        QWidget.setTabOrder(self.delayForCurlResponse, self.stopLiveLog)
+        QWidget.setTabOrder(self.stopLiveLog, self.logPHSLive)
+        QWidget.setTabOrder(self.logPHSLive, self.logAfterCurl)
+        QWidget.setTabOrder(self.logAfterCurl, self.startLiveLog)
+        QWidget.setTabOrder(self.startLiveLog, self.grepLineEdit)
+        QWidget.setTabOrder(self.grepLineEdit, self.pathForLogButton)
 
         self.retranslateUi(MainWindow)
 
@@ -509,5 +579,11 @@ class Ui_MainWindow(object):
         self.startLiveLog.setText(QCoreApplication.translate("MainWindow", u"Start live", None))
         self.checgedCurl.setText(QCoreApplication.translate("MainWindow", u"wybrany cur l---------------------------------------------------------------------", None))
         self.grepLineEdit.setText("")
+        self.pathInfoLabel.setText("")
+        self.pathForLogButton.setText(QCoreApplication.translate("MainWindow", u"Wybierz folder do log\u00f3w", None))
+        self.label_11.setText(QCoreApplication.translate("MainWindow", u"Ustawienia dla lokalnej Apki", None))
+        self.label_12.setText(QCoreApplication.translate("MainWindow", u"Wybierz folder gdzie znajduj\u0105 si\u0119 logi\n"
+"format log\u00f3w powinien wygl\u0105da\u0107 np.\n"
+"( 2023_03_31_logging.log )", None))
     # retranslateUi
 

@@ -5,10 +5,8 @@ class CurlParser:
 
     def getTypeOfCurl(self, curl):
         if curl.find("&methodString") != -1:
-            logging.info(f'Type of curl {curl} is 1')
             return 1
         elif curl.find("&callMethod") != -1:
-            logging.info(f'Type of curl {curl} is 2')
             return 2
         else:
             logging.warning(f'Can not find type of {curl} !!!')

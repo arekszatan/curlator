@@ -1,4 +1,5 @@
 import logging
+import aiofiles as aiofiles
 import asyncssh as asyncssh
 import asyncio
 import qasync
@@ -13,6 +14,8 @@ class Asyncio:
     outputCmd = Signal(str)
     errorSendCurl = Signal()
     curlCallBackSignal = Signal(str)
+    logLocalHostSignal = Signal(list)
+    logLocalHostSignalCurl = Signal(list)
 
     def __init__(self):
         self.conn = None
@@ -68,5 +71,34 @@ class Asyncio:
         except:
             logging.exception(f'Can not get call back curl info for {cmd} to {ip}')
 
+    @qasync.asyncSlot()
+    async def readFileOfLogs(self, filePath):
+        try:
+            async with aiofiles.open(filePath, mode='r') as f:
+                lines = await f.readlines()
+                self.logLocalHostSignal.emit(lines)
+                await f.close()
+        except:
+            await f.close()
+            logging.exception(f'Error cant open and read file {filePath}')
 
+    @qasync.asyncSlot()
+    async def sendLocalCurl(self, cmd):
+        self.startedSendCurl.emit()
+        try:
+            await asyncio.create_subprocess_shell(cmd, stdout=asyncio.subprocess.PIPE)
+            self.finishedSendCurl.emit()
+        except:
+            self.errorSendCurl.emit()
+            logging.exception(f'Error cant send local curl  {cmd}')
 
+    @qasync.asyncSlot()
+    async def getCurlCallBackLocal(self, filePath, delay):  # Send curl asynch
+        try:
+            await asyncio.sleep(delay)
+            async with aiofiles.open(filePath, mode='r') as f:
+                lines = await f.readlines()
+                self.logLocalHostSignalCurl.emit(lines)
+                await f.close()
+        except:
+            logging.exception(f'Error cant open and read file {filePath}')
