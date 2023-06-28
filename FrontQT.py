@@ -55,8 +55,11 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
 
     def setInitStartValue(self):
         self.stackedWidget.setCurrentIndex(0)
-        self.maxLineLogLive.setValue(10)
-        self.fontSize.setValue(10)
+        self.maxLineLogLive.setValue(100)
+        self.fontSize.setValue(12)
+        self.countLineForCurl.setValue(20)
+        self.timerPHSLive.setValue(500)
+        self.delayForCurlResponse.setValue(500)
         for param, label in self.listOfParametr:
             param.setVisible(False)
             label.setVisible(False)
@@ -152,16 +155,87 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
         i = 0
         for log in outLog:
             if i >= lenLogs:
-                if self.grepLineEdit.text() == "":
-                    log = log[:-1]
-                    if log != "\n":
-                        self.logPHSLive.append(log)
+                ind = 0
+                findingLogData = 0
+                while ind < 3:
+                    findingLogIndex = log[findingLogData:].find(":")
+                    findingLogData += findingLogIndex + 1
+                    ind += 1
+                findingLogData = findingLogData
+                findingLogInfo = log[findingLogData + 2:].find(":")
+
+                colorInfo = ['#0ccaf0', '#fcf403', '#fc0303']  # [INFO, DBUG, WARN]
+                info = log[findingLogData:findingLogData + 2 + findingLogInfo]
+
+                classNameStart = findingLogData + 2 + findingLogInfo
+                classNameStart = log[classNameStart:].find(".") + classNameStart
+                classNameStop = log[classNameStart:].find(":") + classNameStart
+                className = log[classNameStart:classNameStop]
+                flagaLog = True
+                if info == "INFO":
+                    colorInfo = colorInfo[0]
+                elif info == "DBUG":
+                    colorInfo = colorInfo[1]
+                elif info == "WARN":
+                    colorInfo = colorInfo[2]
                 else:
-                    if log.find(self.grepLineEdit.text()) != -1:
+                    flagaLog = False
+                log = log.replace('<', '&lt;')
+                log = log.replace('>', '&gt;')
+                if self.grepLineEdit.text() == "":
+                    if flagaLog:
                         log = log[:-1]
                         if log != "\n":
-                            self.logPHSLive.append(log)
+                            self.logPHSLive.append(f'<head><meta charset="utf-8"></head>'
+                                                   f'<body>'
+                                                   f'<span style="font-size: {self.fontSize.value()}pt;">'
+                                                   f'<span style="color:#317507;">'
+                                                   f'{log[:findingLogData]}'
+                                                   f'</span>'
+                                                   f'<span style="color:{colorInfo};">'
+                                                   f'{info}'
+                                                   f'</span>'
+                                                   f'<span style="color:">'
+                                                   f'{log[findingLogData + 2 + findingLogInfo:classNameStart]}'
+                                                   f'</span>'
+                                                   f'<span style="color:#0ccaf0;">'
+                                                   f'{className}'
+                                                   f'</span>'
+                                                   f'{log[classNameStop:]}'
+                                                   f'</span>'
+                                                   f'</body>')
+                        else:
+                            if log != "\n":
+                                if log.find('Exception') != -1 or log.find('at ') != -1:
+                                    self.logPHSLive.append(
+                                        f'<span style="font-size: {self.fontSize.value()}pt; color:#fc0303;">'
+                                        f'{log}'
+                                        f'</span>')
+                                else:
+                                    self.logPHSLive.append(
+                                        f'<span style="font-size: {self.fontSize.value()}pt; color:#0ccaf0;">'
+                                        f'{log}'
+                                        f'</span>')
+                else:
+                    findingLog = log.find(self.grepLineEdit.text())
+                    if findingLog != -1:
+                        newLogBefore = log[:findingLog]
+                        logFind = log[findingLog:findingLog + len(self.grepLineEdit.text())]
+                        newLogAfter = log[findingLog + len(self.grepLineEdit.text()):]
+                        newLogAfter = newLogAfter[:-1]
+                        if log != "\n":
+                            self.logPHSLive.append(f'<span style="font-size: {self.fontSize.value()}pt;">'
+                                                   f'{newLogBefore}'
+                                                   f'<span style="color:red;">'
+                                                   f'{logFind}'
+                                                   f'</span>'
+                                                   f'{newLogAfter}'
+                                                   f'</span>')
+
             i += 1
+        if self.logPHSLive.toPlainText() == "":
+            self.logPHSLive.setFontPointSize(self.fontSize.value())
+            self.logPHSLive.setText(f'Brak logów dla {self.grepLineEdit.text()}')
 
     def logLocalHostCurlFun(self, outLog):
         self.logAfterCurl.setFontPointSize(self.fontSize.value())
@@ -169,17 +243,79 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
         i = lenLogs
         findedLog = False
         while i >= 0:
-            if outLog[i-1].find(" 127.0.0.1: Executing request") != -1:
+            if outLog[i - 1].find(" 127.0.0.1: Executing request") != -1:  # " 127.0.0.1: Executing request"
                 findedLog = True
                 break
             i -= 1
         findLine = i
         if findedLog:
+            firstLine = True
             while i < findLine + self.countLineForCurl.value() and i <= lenLogs:
-                log = outLog[i-1][:-1]
-                self.logAfterCurl.append(log)
+                log = outLog[i - 1][:-1]
+                log = log.replace('<', '&lt;')
+                log = log.replace('>', '&gt;')
+                ind = 0
+                findingLogData = 0
+                while ind < 3:
+                    findingLogIndex = log[findingLogData:].find(":")
+                    findingLogData += findingLogIndex + 1
+                    ind += 1
+                findingLogData = findingLogData
+                findingLogInfo = log[findingLogData + 2:].find(":")
+
+                colorInfo = ['#0ccaf0', '#fcf403', '#fc0303']  # [INFO, DBUG, WARN]
+                info = log[findingLogData:findingLogData + 2 + findingLogInfo]
+                classNameStart = findingLogData + 2 + findingLogInfo
+                classNameStart = log[classNameStart:].find(".") + classNameStart
+                classNameStop = log[classNameStart:].find(":") + classNameStart
+                className = log[classNameStart:classNameStop]
+                flagaLog = True
+                if info == "INFO":
+                    colorInfo = colorInfo[0]
+                elif info == "DBUG":
+                    colorInfo = colorInfo[1]
+                elif info == "WARN":
+                    colorInfo = colorInfo[2]
+                else:
+                    flagaLog = False
+                if flagaLog:
+                    if firstLine:
+                        self.logAfterCurl.append(f'<span style="font-size: {self.fontSize.value()}pt; color:#ab5757;">'
+                                                 f'{log}'
+                                                 f'</span>')
+                        firstLine = False
+                    else:
+                        self.logAfterCurl.append(f'<head><meta charset="utf-8"></head>'
+                                                 f'<body>'
+                                                 f'<span style="font-size: {self.fontSize.value()}pt;">'
+                                                 f'<span style="color:#317507;">'
+                                                 f'{log[:findingLogData]}'
+                                                 f'</span>'
+                                                 f'<span style="color:{colorInfo};">'
+                                                 f'{info}'
+                                                 f'</span>'
+                                                 f'<span style="color:">'
+                                                 f'{log[findingLogData + 2 + findingLogInfo:classNameStart]}'
+                                                 f'</span>'
+                                                 f'<span style="color:#0ccaf0;">'
+                                                 f'{className}'
+                                                 f'</span>'
+                                                 f'{log[classNameStop:]}'
+                                                 f'</span>'
+                                                 f'</body>')
+                else:
+                    if log.find('Exception') != -1 or log.find('at ') != -1:
+                        self.logAfterCurl.append(f'<span style="font-size: {self.fontSize.value()}pt; color:#fc0303;">'
+                                                 f'{log}'
+                                                 f'</span>')
+                    else:
+                        self.logAfterCurl.append(f'<span style="font-size: {self.fontSize.value()}pt; color:#0ccaf0;">'
+                                                 f'{log}'
+                                                 f'</span>')
+
                 i += 1
         else:
+            self.logAfterCurl.setFontPointSize(self.fontSize.value())
             self.logAfterCurl.append(f'Nie znalazłem call back dla curla')
 
     def liveLogTimerFunctionLocal(self):
@@ -226,12 +362,12 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
         self.infoCurlLabel.setText("Curl został wysłany prawidłowo <3")
         if self.localAPP:
             date = datetime.today().strftime('%Y_%m_%d_logging.log')
-            self.getCurlCallBackLocal(f'{self.filePath}/{date}',self.delayForCurlResponse.value()/1000)
+            self.getCurlCallBackLocal(f'{self.filePath}/{date}', self.delayForCurlResponse.value() / 1000)
         else:
             self.getCurlCallBack(self.data['ip'], self.data['username'], self.data['password'],
-                                 f'grep -C{self.countLineForCurl.value()-1} " 127.0.0.1: Executing request"'
+                                 f'grep -C{self.countLineForCurl.value() - 1} " 127.0.0.1: Executing request"'
                                  f' ~/PHS/logs/(date +%Y_%m_%d)_logging.log | tail -{self.countLineForCurl.value()}',
-                                 self.delayForCurlResponse.value()/1000)
+                                 self.delayForCurlResponse.value() / 1000)
 
     def errorSendCurlFun(self):
         self.infoCurlLabel.setText("Wystąpił błąd podczas wysyłania curla")
@@ -248,9 +384,87 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
                                        f' | grep "{self.grepLineEdit.text()}"')
 
     def outputCmdFun(self, out):  # Get result of live log PHS and display
+        self.logPHSLive.clear()
+        outList = out.split("\n")
         if self.logPHSLive.toPlainText() != out:
-            self.logPHSLive.setText(out)
-        self.logPHSLive.verticalScrollBar().setValue(self.logPHSLive.verticalScrollBar().maximum())
+            for o in outList:
+                ind = 0
+                findingLogData = 0
+                while ind < 3:
+                    findingLogIndex = o[findingLogData:].find(":")
+                    findingLogData += findingLogIndex + 1
+                    ind += 1
+                findingLogData = findingLogData
+                findingLogInfo = o[findingLogData + 2:].find(":")
+                colorInfo = ['#0ccaf0', '#fcf403', '#fc0303']  # [INFO, DBUG, WARN]
+                info = o[findingLogData:findingLogData + 2 + findingLogInfo]
+                classNameStart = findingLogData + 2 + findingLogInfo
+                classNameStart = o[classNameStart:].find(".") + classNameStart
+                classNameStop = o[classNameStart:].find(":") + classNameStart
+                className = o[classNameStart:classNameStop]
+                flagaLog = True
+                if info == "INFO":
+                    colorInfo = colorInfo[0]
+                elif info == "DBUG":
+                    colorInfo = colorInfo[1]
+                elif info == "WARN":
+                    colorInfo = colorInfo[2]
+                else:
+                    flagaLog = False
+                o = o.replace('<', '&lt;')
+                o = o.replace('>', '&gt;')
+                if self.grepLineEdit.text() == "":
+                    if flagaLog:
+                        self.logPHSLive.append(f'<head><meta charset="utf-8"></head>'
+                                               f'<body>'
+                                               f'<span style="font-size: {self.fontSize.value()}pt;">'
+                                               f'<span style="color:#317507;">'
+                                               f'{o[:findingLogData]}'
+                                               f'</span>'
+                                               f'<span style="color:{colorInfo};">'
+                                               f'{info}'
+                                               f'</span>'
+                                               f'<span style="color:">'
+                                               f'{o[findingLogData + 2 + findingLogInfo:classNameStart]}'
+                                               f'</span>'
+                                               f'<span style="color:#0ccaf0;">'
+                                               f'{className}'
+                                               f'</span>'
+                                               f'{o[classNameStop:]}'
+                                               f'</span>'
+                                               f'</body>')
+                    else:
+                        if o != "\n":
+                            if o.find('Exception') != -1 or o.find('at ') != -1:
+                                self.logPHSLive.append(
+                                    f'<span style="font-size: {self.fontSize.value()}pt; color:#fc0303;">'
+                                    f'{o}'
+                                    f'</span>')
+                            else:
+                                self.logPHSLive.append(
+                                    f'<span style="font-size: {self.fontSize.value()}pt; color:#0ccaf0;">'
+                                    f'{o}'
+                                    f'</span>')
+
+                else:
+                    findingLog = o.find(self.grepLineEdit.text())
+                    if findingLog != -1:
+                        newLogBefore = o[:findingLog]
+                        logFind = o[findingLog:findingLog + len(self.grepLineEdit.text())]
+                        newLogAfter = o[findingLog + len(self.grepLineEdit.text()):]
+                        if o != "\n":
+                            self.logPHSLive.append(f'<span style="font-size: {self.fontSize.value()}pt;">'
+                                                   f'{newLogBefore}'
+                                                   f'<span style="color:red;">'
+                                                   f'{logFind}'
+                                                   f'</span>'
+                                                   f'{newLogAfter}'
+                                                   f'</span>')
+            self.logPHSLive.verticalScrollBar().setValue(self.logPHSLive.verticalScrollBar().maximum())
+
+        if self.logPHSLive.toPlainText() == "":
+            self.logPHSLive.setFontPointSize(self.fontSize.value())
+            self.logPHSLive.setText(f'Brak logów dla {self.grepLineEdit.text()}')
 
     def sendCurlButton(self):  # Send Curl to execute push button
         logging.info(f'Button sending curl was clicked and send curl {self.finishedCurl.text()} to {self.data["ip"]}')
@@ -258,11 +472,14 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
         if self.localAPP:
             self.sendLocalCurl(self.finishedCurl.text())
         else:
-            self.sendAsyncioCurl(self.data['ip'], self.data['username'], self.data['password'], self.finishedCurl.text())
+            self.sendAsyncioCurl(self.data['ip'], self.data['username'], self.data['password'],
+                                 self.finishedCurl.text())
 
     def backToCurls(self):  # Back to list of curls push button
         self.stackedWidget.setCurrentIndex(1)
         logging.info("Button back to list of curl was clicked and return to stacked widget index 1")
+        self.logAfterCurl.clear()
+        self.infoCurlLabel.clear()
         for param, label in self.listOfParametr:
             param.setVisible(False)
             label.setVisible(False)
@@ -298,9 +515,66 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
             self.finishedCurl.setText(self.CurlParser.createFinishCurlCallMethod(self.actualCurl, param))
 
     def curlCallBackFun(self, out):  # Catch signal for sending curl and get call back output
+        outList = out.split("\n")
+        firstLine = True
+        for o in outList:
+            if firstLine:
+                if o.find(" 127.0.0.1: Executing request") == -1:
+                    continue
+                self.logAfterCurl.append(f'<span style="font-size: {self.fontSize.value()}pt; color:#ab5757;">'
+                                         f'{o}'
+                                         f'</span>')
+                firstLine = False
+            else:
+                ind = 0
+                findingLogData = 0
+                while ind < 3:
+                    findingLogIndex = o[findingLogData:].find(":")
+                    findingLogData += findingLogIndex + 1
+                    ind += 1
+                findingLogData = findingLogData
+                findingLogInfo = o[findingLogData + 2:].find(":")
+                colorInfo = ['#0ccaf0', '#fcf403', '#fc0303']  # [INFO, DBUG, WARN]
+                info = o[findingLogData:findingLogData + 2 + findingLogInfo]
+                classNameStart = findingLogData + 2 + findingLogInfo
+                classNameStart = o[classNameStart:].find(".") + classNameStart
+                classNameStop = o[classNameStart:].find(":") + classNameStart
+                className = o[classNameStart:classNameStop]
+                flagaLog = True
+                if info == "INFO":
+                    colorInfo = colorInfo[0]
+                elif info == "DBUG":
+                    colorInfo = colorInfo[1]
+                elif info == "WARN":
+                    colorInfo = colorInfo[2]
+                else:
+                    flagaLog = False
+                o = o.replace('<', '&lt;')
+                o = o.replace('>', '&gt;')
+                if flagaLog:
+                    self.logAfterCurl.append(f'<head><meta charset="utf-8"></head>'
+                                               f'<body>'
+                                               f'<span style="font-size: {self.fontSize.value()}pt;">'
+                                               f'<span style="color:#317507;">'
+                                               f'{o[:findingLogData]}'
+                                               f'</span>'
+                                               f'<span style="color:{colorInfo};">'
+                                               f'{info}'
+                                               f'</span>'
+                                               f'<span style="color:">'
+                                               f'{o[findingLogData + 2 + findingLogInfo:classNameStart]}'
+                                               f'</span>'
+                                               f'<span style="color:#0ccaf0;">'
+                                               f'{className}'
+                                               f'</span>'
+                                               f'{o[classNameStop:]}'
+                                               f'</span>'
+                                               f'</body>')
+                else:
+                    self.logAfterCurl.append(f'<span style="font-size: {self.fontSize.value()}pt;">'
+                                             f'{o}'
+                                             f'</span>')
         logging.info("Get call back for curl")
-        self.logAfterCurl.setFontPointSize(self.fontSize.value())
-        self.logAfterCurl.setText(out)
 
 
 def startAplication():  # Start Application with qasync

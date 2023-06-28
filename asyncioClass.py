@@ -23,7 +23,7 @@ class Asyncio:
     @qasync.asyncSlot()
     async def runAsyncioCmdLiveLog(self, ip, username, password):  # Live log phs
         try:
-            async with await asyncio.wait_for(asyncssh.connect(ip, username=username, password=password), timeout=3) as conn:
+            async with await asyncio.wait_for(asyncssh.connect(ip, username=username, password=password, known_hosts=None), timeout=3) as conn:
                 self.conn = conn
                 while True:
                     await asyncio.sleep(0.1)
@@ -42,8 +42,7 @@ class Asyncio:
     @qasync.asyncSlot()
     async def checkConnectionSSH(self, ip, username, password):  # First connection to ssh
         try:
-            async with await asyncio.wait_for(asyncssh.connect(ip, username=username, password=password),
-                                              timeout=3) as conn:
+            async with await asyncio.wait_for(asyncssh.connect(ip, username=username, password=password, known_hosts=None), timeout=3) as conn:
                 self.connectionOK.emit()
         except:
             logging.exception(f'Can not connect to {ip} as {username}')
@@ -53,7 +52,7 @@ class Asyncio:
     async def sendAsyncioCurl(self, ip, username, password, cmd):  # Send curl asynch
         self.startedSendCurl.emit()
         try:
-            async with await asyncio.wait_for(asyncssh.connect(ip, username=username, password=password), timeout=3) as conn:
+            async with await asyncio.wait_for(asyncssh.connect(ip, username=username, password=password, known_hosts=None), timeout=3) as conn:
                 await conn.run(cmd, check=True)
                 self.finishedSendCurl.emit()
         except:
@@ -63,8 +62,7 @@ class Asyncio:
     @qasync.asyncSlot()
     async def getCurlCallBack(self, ip, username, password, cmd, delay):  # Send curl asynch
         try:
-            async with await asyncio.wait_for(asyncssh.connect(ip, username=username, password=password),
-                                              timeout=3) as conn:
+            async with await asyncio.wait_for(asyncssh.connect(ip, username=username, password=password, known_hosts=None), timeout=3) as conn:
                 await asyncio.sleep(delay)
                 result = await conn.run(cmd, check=True)
                 self.curlCallBackSignal.emit(result.stdout)
@@ -74,7 +72,7 @@ class Asyncio:
     @qasync.asyncSlot()
     async def readFileOfLogs(self, filePath):
         try:
-            async with aiofiles.open(filePath, mode='r') as f:
+            async with aiofiles.open(filePath, mode='r', encoding="utf-8") as f:
                 lines = await f.readlines()
                 self.logLocalHostSignal.emit(lines)
                 await f.close()
@@ -96,7 +94,7 @@ class Asyncio:
     async def getCurlCallBackLocal(self, filePath, delay):  # Send curl asynch
         try:
             await asyncio.sleep(delay)
-            async with aiofiles.open(filePath, mode='r') as f:
+            async with aiofiles.open(filePath, mode='r', encoding="utf-8") as f:
                 lines = await f.readlines()
                 self.logLocalHostSignalCurl.emit(lines)
                 await f.close()
