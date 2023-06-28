@@ -1,7 +1,7 @@
 {
-	"ip": "",
-	"username": "amsort",
-	"password": "amsort25@%",
+	"ip": "localhost",
+	"username": "*****",
+	"password": "********",
     "curls":
     [
       {
