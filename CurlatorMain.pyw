@@ -9,5 +9,3 @@ if __name__ == "__main__":
                         datefmt='%d-%b-%y %H:%M:%S')
     logging.info('Starting main ...')
     FrontQT.startAplication()
-
-

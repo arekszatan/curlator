@@ -365,8 +365,9 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
             self.getCurlCallBackLocal(f'{self.filePath}/{date}', self.delayForCurlResponse.value() / 1000)
         else:
             self.getCurlCallBack(self.data['ip'], self.data['username'], self.data['password'],
-                                 f'grep -C{self.countLineForCurl.value() - 1} " 127.0.0.1: Executing request"'
-                                 f' ~/PHS/logs/(date +%Y_%m_%d)_logging.log | tail -{self.countLineForCurl.value()}',
+                                 f'tac ~/PHS/logs/(date +%Y_%m_%d)_logging.log '
+                                 f'| grep -m1 -B{self.countLineForCurl.value()} '
+                                 f'" 127.0.0.1: Executing request" | tac',
                                  self.delayForCurlResponse.value() / 1000)
 
     def errorSendCurlFun(self):
@@ -553,23 +554,23 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
                 o = o.replace('>', '&gt;')
                 if flagaLog:
                     self.logAfterCurl.append(f'<head><meta charset="utf-8"></head>'
-                                               f'<body>'
-                                               f'<span style="font-size: {self.fontSize.value()}pt;">'
-                                               f'<span style="color:#317507;">'
-                                               f'{o[:findingLogData]}'
-                                               f'</span>'
-                                               f'<span style="color:{colorInfo};">'
-                                               f'{info}'
-                                               f'</span>'
-                                               f'<span style="color:">'
-                                               f'{o[findingLogData + 2 + findingLogInfo:classNameStart]}'
-                                               f'</span>'
-                                               f'<span style="color:#0ccaf0;">'
-                                               f'{className}'
-                                               f'</span>'
-                                               f'{o[classNameStop:]}'
-                                               f'</span>'
-                                               f'</body>')
+                                             f'<body>'
+                                             f'<span style="font-size: {self.fontSize.value()}pt;">'
+                                             f'<span style="color:#317507;">'
+                                             f'{o[:findingLogData]}'
+                                             f'</span>'
+                                             f'<span style="color:{colorInfo};">'
+                                             f'{info}'
+                                             f'</span>'
+                                             f'<span style="color:">'
+                                             f'{o[findingLogData + 2 + findingLogInfo:classNameStart]}'
+                                             f'</span>'
+                                             f'<span style="color:#0ccaf0;">'
+                                             f'{className}'
+                                             f'</span>'
+                                             f'{o[classNameStop:]}'
+                                             f'</span>'
+                                             f'</body>')
                 else:
                     self.logAfterCurl.append(f'<span style="font-size: {self.fontSize.value()}pt;">'
                                              f'{o}'
