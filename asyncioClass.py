@@ -16,6 +16,7 @@ class Asyncio:
     curlCallBackSignal = Signal(str)
     logLocalHostSignal = Signal(list)
     logLocalHostSignalCurl = Signal(list)
+    clear_log_text_edit = Signal()
 
     def __init__(self):
         self.conn = None
@@ -64,6 +65,7 @@ class Asyncio:
         try:
             async with await asyncio.wait_for(asyncssh.connect(ip, username=username, password=password, known_hosts=None), timeout=3) as conn:
                 await asyncio.sleep(delay)
+                self.clear_log_text_edit.emit()
                 result = await conn.run(cmd, check=True)
                 self.curlCallBackSignal.emit(result.stdout)
         except:
@@ -94,6 +96,7 @@ class Asyncio:
     async def getCurlCallBackLocal(self, filePath, delay):  # Send curl asynch
         try:
             await asyncio.sleep(delay)
+            self.clear_log_text_edit.emit()
             async with aiofiles.open(filePath, mode='r', encoding="utf-8") as f:
                 lines = await f.readlines()
                 self.logLocalHostSignalCurl.emit(lines)

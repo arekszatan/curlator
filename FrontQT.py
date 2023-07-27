@@ -33,6 +33,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
         self.actualCurl = str
         self.filePath = str
         self.localAPP = bool
+        self.ssh_curl_is_Sending = False
 
         # Set list of parameter for curl
         self.listToJson = []
@@ -87,6 +88,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
         self.curlCallBackSignal.connect(self.curlCallBackFun)
         self.logLocalHostSignal.connect(self.logLocalHostFun)
         self.logLocalHostSignalCurl.connect(self.logLocalHostCurlFun)
+        self.clear_log_text_edit.connect(self.clear_log_text_edit_slot)
 
         # Connect text change line edit to end curl
         for param, label in self.listOfParametr:
@@ -242,6 +244,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
         lenLogs = len(outLog)
         i = lenLogs
         findedLog = False
+
         while i >= 0:
             if outLog[i - 1].find(" 127.0.0.1: Executing request") != -1:  # " 127.0.0.1: Executing request"
                 findedLog = True
@@ -360,6 +363,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
     def finishedSendCurlFun(self):  # Finished of send asynch curl to ssh with succeed
         logging.info(f'Curl sent and everything looks good <3')
         self.infoCurlLabel.setText("Curl został wysłany prawidłowo <3")
+        self.ssh_curl_is_Sending = False
+
         if self.localAPP:
             date = datetime.today().strftime('%Y_%m_%d_logging.log')
             self.getCurlCallBackLocal(f'{self.filePath}/{date}', self.delayForCurlResponse.value() / 1000)
@@ -371,6 +376,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
                                  self.delayForCurlResponse.value() / 1000)
 
     def errorSendCurlFun(self):
+        self.ssh_curl_is_Sending = False
         self.infoCurlLabel.setText("Wystąpił błąd podczas wysyłania curla")
 
     def liveLogTimerFunction(self):  # Interval function to send live log PHS (ssh)
@@ -468,8 +474,13 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
             self.logPHSLive.setText(f'Brak logów dla {self.grepLineEdit.text()}')
 
     def sendCurlButton(self):  # Send Curl to execute push button
+        if self.ssh_curl_is_Sending:
+            logging.warning("Cant send curl, previous curl is proceeding !")
+            return
+
         logging.info(f'Button sending curl was clicked and send curl {self.finishedCurl.text()} to {self.data["ip"]}')
         self.logAfterCurl.clear()
+        self.ssh_curl_is_Sending = True
         if self.localAPP:
             self.sendLocalCurl(self.finishedCurl.text())
         else:
@@ -518,6 +529,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
     def curlCallBackFun(self, out):  # Catch signal for sending curl and get call back output
         outList = out.split("\n")
         firstLine = True
+
         for o in outList:
             if firstLine:
                 if o.find(" 127.0.0.1: Executing request") == -1:
@@ -576,6 +588,9 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
                                              f'{o}'
                                              f'</span>')
         logging.info("Get call back for curl")
+
+    def clear_log_text_edit_slot(self):
+        self.logAfterCurl.clear()
 
 
 def startAplication():  # Start Application with qasync
