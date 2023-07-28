@@ -53,5 +53,5 @@ class CurlParser:
         return newCurl
 
     def getEndofCurl(self, curl):
-        curl = '" ' + curl.split()[3]
+        curl = '" ' + curl.split()[-1]
         return str(curl)

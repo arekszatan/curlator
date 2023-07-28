@@ -515,7 +515,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
                 i += 1
         self.finishedCurl.setText(curl)
 
-    def setOnlyActulCurl(self):  # Function connected to text line edit textchanged
+    def setOnlyActulCurl(self):  # Function connected to text line edit text changed
         type = self.CurlParser.getTypeOfCurl(self.actualCurl)
         param = []
         for pa, label in self.listOfParametr:

@@ -2,6 +2,7 @@ import logging
 from datetime import datetime
 import FrontQT
 
+
 if __name__ == "__main__":
     logName = datetime.today().strftime('%Y_%m_%d_logging.log')
     logging.basicConfig(level=logging.INFO, filename=logName, filemode='w',
