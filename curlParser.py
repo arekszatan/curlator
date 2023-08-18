@@ -38,6 +38,9 @@ class CurlParser:
     def createFinishCurlMethodString(self, curl, param):
         curlnew = curl[:curl.find("&p=") + 3]
         curlnew = curlnew + str(param[0]) + self.getEndofCurl(curl)
+
+        if curlnew.find('https://') != -1:
+            curlnew = curlnew + self.httpsCurl()
         return curlnew
 
     def createFinishCurlCallMethod(self, curl, param):
@@ -50,8 +53,21 @@ class CurlParser:
             newCurl = newCurl + "&p" + str(i) + "=" + str(p)
             i += 1
         newCurl = newCurl + self.getEndofCurl(curl)
+
+        if newCurl.find('https://') != -1:
+           newCurl = newCurl + self.httpsCurl()
+
         return newCurl
 
     def getEndofCurl(self, curl):
+        if curl.find('https://') != -1:
+            curl = '" ' + curl.split()[-2]
+            return str(curl)
+
         curl = '" ' + curl.split()[-1]
         return str(curl)
+
+    def httpsCurl(self):
+        end = ' -k'
+        return end
+

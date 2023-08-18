@@ -330,6 +330,9 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, asyncioClass.Asyncio):
         logging.info(f'List of Json was clicked and value of '
                      f'row is {str(self.listToJson[self.curlList.currentIndex().row()])}')
         self.actualCurl = str(self.listToJson[self.curlList.currentIndex().row()])
+        if self.actualCurl.find('https://') != -1:
+           self.actualCurl = self.actualCurl + ' -k'
+
         self.checgedCurl.setText(self.actualCurl)
         self.setActualCurlandParam(self.actualCurl)
 
